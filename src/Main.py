@@ -42,16 +42,14 @@ def ReadButton(dst, ERD):
             Is_Correct = False
     return Dato     
 
-HeaderNames = ("ERD1", "ERD2", "ERD3", "ERD4", "ERD5", "ERD6",
-                "ERD7", "ERD7", "ERD9", "ERD10")
-
 ERD_List = ["F01B", "2000", "F7D0"]
 
 def check_file(my_file):
     with open(my_file, mode="a") as file:  
         file = csv.writer(file, delimiter=",",
                 quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
-        file.writerow(["Dia", "Hora", "ERD_F01B", "ERD_2000", "ERD_F7D0", "\n"])
+        file.writerow(["Dia", "Hora", "ERD1", "ERD2", "ERD3", 
+                    "ERD4", "ERD5", "ERD6", "ERD7", "ERD8","\n"])
 
 TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
@@ -67,6 +65,7 @@ while True:
     for ERD in ERD_List:
         Dato = ReadButton("C0", ERD)
         ERDS.append(Dato)
+        
     ERD_F01B, ERD_2000, ERD_F7D0 = ERDS
     
     with open(my_file, mode="a") as file:  # Open de file .Sample_CSV in mode write
