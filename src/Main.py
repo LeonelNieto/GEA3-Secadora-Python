@@ -27,13 +27,14 @@ def ReadButton(dst, ERD):
         ser.write(lectura)                                       
         while True:
             reading = ser.read(1)                 
-            concatenate = reading.hex()                                         
+            concatenate = reading.hex()  
+            print(concatenate)                                       
             complete_frame += concatenate                                        
             if reading == b'\xE3':                               
                 break                   
-            if reading == b'':      
+            if reading == b'':   
+                Dato = "Se ha desconectado la unidad"   
                 break  
-        print(complete_frame)  
         complete_frame = complete_frame.upper()             
         Byte_ERD = complete_frame[14:18]
         if Byte_ERD == ERD:
@@ -55,25 +56,31 @@ def check_file(my_file):
 TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
 file_name = "Prueba" + diaStr + "_" + TimeStr + ".csv"
-my_file = Path("C:/Users/LNLMEXID/Desktop/GEA3 Secadora/" + file_name)
+my_file = Path("C:/Users/LNLMEXID/Desktop/GEA3 Secadora/Data/" + file_name)
 check_file(my_file)
 
-while True:
-    SetBoard(0)
-    ERDS = []
-    TimeS = datetime.now().strftime("%H:%M:%S")
-    diaS = datetime.now().strftime("%d-%m-%Y")
-    for ERD in ERD_List:
-        Dato = ReadButton("C0", ERD)
-        ERDS.append(Dato)
+def main():
+    while True:
+        SetBoard(0)
+        ERDS = []
+        TimeS = datetime.now().strftime("%H:%M:%S")
+        diaS = datetime.now().strftime("%d-%m-%Y")
+        for ERD in ERD_List:
+            Dato = ReadButton("C0", ERD)
+            ERDS.append(Dato)
+            
+        ERD_F01B, ERD_2000, ERD_F7D0 = ERDS
+        try:      
+            with open(my_file, "a") as file: 
+                file = csv.writer(file, delimiter=",",
+                                    quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+                file.writerow([diaS, TimeS, ERD_F01B, ERD_2000, ERD_F7D0, "\n"])
+            print(ERDS)
+            time.sleep(1)
         
-    ERD_F01B, ERD_2000, ERD_F7D0 = ERDS
-    
-    with open(my_file, mode="a") as file:  # Open de file .Sample_CSV in mode write
-        file = csv.writer(file, delimiter=",",
-                            quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
-        
-        file.writerow([diaS, TimeS, ERD_F01B, ERD_2000, ERD_F7D0, "\n"])
-    
-    print(ERDS)
-    time.sleep(1)
+        except PermissionError:
+            print(f'El archivo "{file_name}" está abierto esperando a que se cierre')
+            time.sleep(1)
+            
+if __name__ == "__main__":
+    main()
