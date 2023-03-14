@@ -34,7 +34,6 @@ def ReadButton(dst, ERD):
                 complete_frame = "Verifica conexiones"   
                 break
         Dato = complete_frame 
-        print(Dato) 
         complete_frame = complete_frame.upper()             
         Byte_ERD = complete_frame[14:18]
         if Byte_ERD == ERD:
@@ -56,7 +55,7 @@ def check_file(my_file):
 TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
 file_name = "Prueba" + diaStr + "_" + TimeStr + ".csv"
-my_file = Path("/home/pi/Desktop/GEA3-Secadora-Python/Data CSV/" + file_name)
+my_file = Path("/home/pi/Desktop" + file_name)
 check_file(my_file)
 
 def main():
@@ -67,6 +66,7 @@ def main():
         diaS = datetime.now().strftime("%d-%m-%Y")
         for ERD in ERD_List:
             Dato = ReadButton("C0", ERD)
+            print(Dato)
             ERDS.append(Dato)
             
         ERD_F01B, ERD_2000, ERD_F7D0 = ERDS
@@ -75,7 +75,6 @@ def main():
                 file = csv.writer(file, delimiter=",",
                                     quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
                 file.writerow([diaS, TimeS, ERD_F01B, ERD_2000, ERD_F7D0, "\n"])
-            print(ERDS)
             time.sleep(1)
         
         except PermissionError:
