@@ -26,8 +26,7 @@ def ReadButton(dst, ERD):
         ser.write(lectura)                                       
         while True:
             reading = ser.read(1)                 
-            concatenate = reading.hex()  
-            print(concatenate)                                       
+            concatenate = reading.hex()                                     
             complete_frame += concatenate                                        
             if reading == b'\xE3':                               
                 break                   
@@ -55,12 +54,12 @@ def check_file(my_file):
 TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
 file_name = "Prueba" + diaStr + "_" + TimeStr + ".csv"
-my_file = Path("C:/Users/LNLMEXID/Desktop/GEA3 Secadora/Data/" + file_name)
+my_file = Path("/home/pi/Desktop/GEA3-Secadora-Python/Data CSV/" + file_name)
 check_file(my_file)
 
 def main():
     while True:
-        SetBoard(0)
+        SetBoard()
         ERDS = []
         TimeS = datetime.now().strftime("%H:%M:%S")
         diaS = datetime.now().strftime("%d-%m-%Y")
