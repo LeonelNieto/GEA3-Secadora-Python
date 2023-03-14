@@ -7,15 +7,14 @@ from pathlib import Path
 from datetime import datetime
 import time
 
-def SetBoard(board):                                                      
+def SetBoard():                                                      
     global ser
     ser = serial.Serial()
     ser.baudrate = 230400                                                               
     ser.bytesize = serial.EIGHTBITS
     ser.parity = serial.PARITY_NONE                                                          
-    ser.timeout = 0.5                                                                   
-    com_ports = list(serial.tools.list_ports.comports())                                
-    ser.port = com_ports[board].device                                                  
+    ser.timeout = 0.5                                                                                                
+    ser.port = "/dev/ttyUSB0"                                                
     ser.open()    
     
 def ReadButton(dst, ERD):                                    
