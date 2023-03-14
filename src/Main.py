@@ -31,8 +31,10 @@ def ReadButton(dst, ERD):
             if reading == b'\xE3':                               
                 break                   
             if reading == b'':   
-                Dato = "Se ha desconectado la unidad"   
-                break  
+                complete_frame = "Verifica conexiones"   
+                break
+        Dato = complete_frame 
+        print(Dato) 
         complete_frame = complete_frame.upper()             
         Byte_ERD = complete_frame[14:18]
         if Byte_ERD == ERD:
