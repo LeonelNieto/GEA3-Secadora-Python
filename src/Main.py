@@ -61,7 +61,7 @@ def check_file(my_file):
 
 TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
-file_name = "Prueba" + diaStr + "_" + TimeStr + ".csv"
+file_name = "Prueba" + diaStr + "_" + TimeStr + ".txt"
 my_file = Path("/home/pi/Desktop/" + file_name)
 check_file(my_file)
 
