@@ -34,9 +34,12 @@ def ReadButton(dst, ERD):
                 complete_frame = "Verifica conexiones"   
                 break
         Dato = complete_frame 
+        print(complete_frame)
         complete_frame = complete_frame.upper()             
         Byte_ERD = complete_frame[14:18]
-        if Byte_ERD == ERD:
+        Byte_OK = complete_frame[12:14]
+        print(Byte_OK)
+        if (Byte_ERD == ERD) and (Byte_OK == "00"):
             Longitud_Dato_hex = complete_frame[18:20]
             Longitud_Dato_int = int(Longitud_Dato_hex, 16) * 2
             Dato = complete_frame[20:(20 + Longitud_Dato_int)]
@@ -44,11 +47,8 @@ def ReadButton(dst, ERD):
     return Dato     
 
 ########################################   HEADERS   ############################################
-def check_file(my_file):
-    with open(my_file, mode="a") as file:  
-        file = csv.writer(file, delimiter=",",
-                quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
-        file.writerow(["Dia", "Hora", "Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_EStarSensorDryRequested", "Erd_SteamCycleOptionRequest",
+
+HEADERS = ["Dia", "Hora", "Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_EStarSensorDryRequested", "Erd_SteamCycleOptionRequest",
                     "Erd_RamCycleHistoryRecord.drynessOptionAtStart", "Erd_RamCycleHistoryRecord.drynessOptionAtEnd", "Erd_RamCycleHistoryRecord.temperatureOptionAtStart", 
                     "Erd_RamCycleHistoryRecord.temperatureOptionAtEnd", "Erd_CurrentInletTemperature","Erd_CurrentOutletTemperature", "Erd_OverTemperatureMaxInletTemperature",
                     "Erd_HeaterRelay1", "Erd_HeaterRelay2", "Erd_MaxTemperatureSlope", "Erd_HeatControlParametric", "Erd_MinimumFilteredVoltageFromMc", "Erd_FilteredMoistureSensor",
@@ -57,11 +57,17 @@ def check_file(my_file):
                     "Erd_Personality", "Erd_DrynessOption", "Erd_VentRestriction", "Erd_LoadSizeByAggregation", "Erd_LoadSizeByContact", "Erd_LoadSizeByTemperature",
                     "Erd_TargetMoistureVoltageHasBeenReached", "Erd_TargetMoistureVoltage", "Erd_TotalDryTimeCalculatorTimeMultiplierX100", "Erd_TotalDryTimeCalculatorTimeAdderSeconds",
                     "Erd_SensorDryTemperatureMultiplierx100", "Erd_TimeToReachTargetVoltageSeconds", "Erd_SensingCycleTotalDryingTimeSeconds", "Erd_DrumGroundWatchdogResult", "Erd_ClothDampnessCheckResult", "Erd_Fault_DrumGroundWatchdogDetection", "Erd_SteamValveCycleCountRam",
-                    "Erd_SteamValveOnTimeDurationInSecondsRam", "Erd_CoolDownStepStatus", "Erd_ExtendedTumbleStepStatus", "Erd_SteamStepStatus", "Erd_EndOfCycleReason", "\n"])     
+                    "Erd_SteamValveOnTimeDurationInSecondsRam", "Erd_CoolDownStepStatus", "Erd_ExtendedTumbleStepStatus", "Erd_SteamStepStatus", "Erd_EndOfCycleReason"]
+
+def check_file(my_file):
+    with open(my_file, mode="a") as file:  
+        file = csv.writer(file, delimiter=",",
+                quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+        file.writerow(HEADERS)     
 
 TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
-file_name = "Prueba" + diaStr + "_" + TimeStr + ".txt"
+file_name = "Prueba" + diaStr + "_" + TimeStr + ".csv"
 my_file = Path("/home/pi/Desktop/" + file_name)
 check_file(my_file)
 
@@ -88,12 +94,15 @@ def main():
         Erd_RamCycleHistoryRecord_temperatureOptionAtStart = Erd_RamCycleHistoryRecord[104:106]
         Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = Erd_RamCycleHistoryRecord[106:108]
 
+        DATA_TO_WRITE = [diaS, TimeS, Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_SteamCycleOptionRequest, Erd_RamCycleHistoryRecord_drynessOptionAtStart, Erd_RamCycleHistoryRecord_drynessOptionAtEnd, Erd_RamCycleHistoryRecord_temperatureOptionAtStart, Erd_RamCycleHistoryRecord_temperatureOptionAtEnd, Erd_CurrentInletTemperature,Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_HeatControlParametric, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_SensorDryTemperatureMultiplierx100, Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds, Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason]
+
         with open(my_file, "a") as file: 
             file = csv.writer(file, delimiter=",",
                                 quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
-            file.writerow([diaS, TimeS, Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_SteamCycleOptionRequest, Erd_RamCycleHistoryRecord_drynessOptionAtStart, Erd_RamCycleHistoryRecord_drynessOptionAtEnd, Erd_RamCycleHistoryRecord_temperatureOptionAtStart, Erd_RamCycleHistoryRecord_temperatureOptionAtEnd, Erd_CurrentInletTemperature,Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_HeatControlParametric, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_SensorDryTemperatureMultiplierx100, Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds, Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, "\n"])      
+            file.writerow(DATA_TO_WRITE)      
 
-        time.sleep(59.74)
+        time.sleep(0.74)
             
 if __name__ == "__main__":
     main()
+ 
