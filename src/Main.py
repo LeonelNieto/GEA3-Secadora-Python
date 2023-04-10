@@ -1,7 +1,6 @@
 import ReadorWrite
 import verifylength as vrlen
 import serial
-import serial.tools.list_ports
 from pathlib import Path
 from datetime import datetime
 import time
@@ -37,7 +36,6 @@ def ReadButton(dst, ERD):
         complete_frame = complete_frame.upper()             
         Byte_ERD = complete_frame[14:18]
         Byte_OK = complete_frame[12:14]
-        print(Byte_OK)
         if (Byte_ERD == ERD) and (Byte_OK == "00"):
             Longitud_Dato_hex = complete_frame[18:20]
             Longitud_Dato_int = int(Longitud_Dato_hex, 16) * 2
@@ -64,6 +62,7 @@ file_name = "Prueba" + diaStr + "_" + TimeStr + ".csv"
 my_file = Path("/home/pi/Desktop/" + file_name)
 
 FileCsv.Write_Data_CSV(my_file, ["Date", diaStr])
+FileCsv.Write_Data_CSV(my_file, [""])
 FileCsv.Write_Data_CSV(my_file, HEADERS)
 
 
@@ -74,12 +73,12 @@ ERD_List = ["F01B", "200A", "F11F", "F01B", "F15E", "F301", "F302", "F705", "F30
 
 def main():
     while True:
+        Tiempo_Inicio = time.time()
         SetBoard()
         ERDS = []
         TimeS = datetime.now().strftime("%H:%M:%S")
         for ERD in ERD_List:
             Dato = ReadButton("C0", ERD)
-            print(Dato)
             ERDS.append(Dato)
             
         Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_SteamCycleOptionRequest, Erd_RamCycleHistoryRecord, Erd_CurrentInletTemperature,Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_HeatControlParametric, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_SensorDryTemperatureMultiplierx100, Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds,Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason = ERDS                                                             
@@ -90,10 +89,13 @@ def main():
         Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = Erd_RamCycleHistoryRecord[106:108]
 
         DATA_TO_WRITE = [TimeS, Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_SteamCycleOptionRequest, Erd_RamCycleHistoryRecord_drynessOptionAtStart, Erd_RamCycleHistoryRecord_drynessOptionAtEnd, Erd_RamCycleHistoryRecord_temperatureOptionAtStart, Erd_RamCycleHistoryRecord_temperatureOptionAtEnd, Erd_CurrentInletTemperature,Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_HeatControlParametric, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_SensorDryTemperatureMultiplierx100, Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds, Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason]
-
+        print(DATA_TO_WRITE)
         FileCsv.Write_Data_CSV(my_file, DATA_TO_WRITE)   
 
-        time.sleep(0.74)
+        Tiempo_Restante = 1 - (time.time() - Tiempo_Inicio) 
+        print(Tiempo_Restante)
+        if Tiempo_Inicio > 0:
+            time.sleep(Tiempo_Restante)
             
 if __name__ == "__main__":
     main()
