@@ -1,0 +1,9 @@
+# pack-refs with: peeled fully-peeled sorted 
+60ce51b21730f3f65f27f60f994b262c69df11e8 refs/heads/Raspberry
+6ff0636443b016368ffc0442af8daaff98f800b7 refs/heads/Windows
+60ce51b21730f3f65f27f60f994b262c69df11e8 refs/pull/1/head
+7f44f8ac1040be4f3286554b032e95622a60fbc8 refs/pull/1/merge
+57efc3c3019b0fd03ea854c39def5ca012a5a016 refs/tags/Funcional_Raspberry
+^0b9c40946438dac95b29eaeba6389840d586ff4e
+c88807938b705a73542c184a302a600b55811773 refs/tags/Funcional_Windows
+^59b12957449fb65b234a8fb651131d47743f122d
