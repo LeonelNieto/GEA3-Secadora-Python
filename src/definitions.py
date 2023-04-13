@@ -71,68 +71,83 @@ def ERDS_TO_WRITE(ERDS):
     
     Erd_EStarSensorDryRequested = ERDS[2]
     Erd_EStarSensorDryRequested = {
-        "0": "EStarOption_Disabled",
-        "1": "EStarOption_Enabled",
-        "2": "EStarOption_Max",
-        "255": "EStarOption_DontCare"
+        0: "EStarOption_Disabled",
+        1: "EStarOption_Enabled",
+        2: "EStarOption_Max",
+        255: "EStarOption_DontCare"
     }.get(Erd_EStarSensorDryRequested)
     ERDS_LIST.append(Erd_EStarSensorDryRequested)
 
     Erd_RamCycleHistoryRecord_drynessOptionAtStart = ERDS[3]
     Erd_RamCycleHistoryRecord_drynessOptionAtStart = {
-        "0": "DrynessOption_Disabled",
-        "1": "DrynessOption_Minimum",
-        "2": "DrynessOption_LessDry",
-        "3": "DrynessOption_Dry",
-        "4": "DrynessOption_MoreDry",
-        "5": "DrynessOption_ExtraDry",
-        "6": "DrynessOption_Max",
-        "255": "DrynessOption_DontCare"
+        0: "DrynessOption_Disabled",
+        1: "DrynessOption_Minimum",
+        2: "DrynessOption_LessDry",
+        3: "DrynessOption_Dry",
+        4: "DrynessOption_MoreDry",
+        5: "DrynessOption_ExtraDry",
+        6: "DrynessOption_Max",
+        255: "DrynessOption_DontCare"
     }.get(Erd_RamCycleHistoryRecord_drynessOptionAtStart)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_drynessOptionAtStart)
 
     Erd_RamCycleHistoryRecord_drynessOptionAtEnd = ERDS[4]
     Erd_RamCycleHistoryRecord_drynessOptionAtEnd = {
-        "0": "DrynessOption_Disabled",
-        "1": "DrynessOption_Minimum",
-        "2": "DrynessOption_LessDry",
-        "3": "DrynessOption_Dry",
-        "4": "DrynessOption_MoreDry",
-        "5": "DrynessOption_ExtraDry",
-        "6": "DrynessOption_Max",
-        "255": "DrynessOption_DontCare"
+        0: "DrynessOption_Disabled",
+        1: "DrynessOption_Minimum",
+        2: "DrynessOption_LessDry",
+        3: "DrynessOption_Dry",
+        4: "DrynessOption_MoreDry",
+        5: "DrynessOption_ExtraDry",
+        6: "DrynessOption_Max",
+        255: "DrynessOption_DontCare"
     }.get(Erd_RamCycleHistoryRecord_drynessOptionAtEnd)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_drynessOptionAtEnd)
 
     Erd_RamCycleHistoryRecord_temperatureOptionAtStart = ERDS[5]
     Erd_RamCycleHistoryRecord_temperatureOptionAtStart = {
-        "0": "TemperatureOption_Disabled",
-        "1": "TemperatureOption_NoHeat",
-        "2": "TemperatureOption_ExtraLow",
-        "3": "TemperatureOption_Low",
-        "4": "TemperatureOption_Medium",
-        "5": "TemperatureOption_High",
-        "6": "TemperatureOption_Max",
-        "255": "TemperatureOption_DontCare"   
+        0: "TemperatureOption_Disabled",
+        1: "TemperatureOption_NoHeat",
+        2: "TemperatureOption_ExtraLow",
+        3: "TemperatureOption_Low",
+        4: "TemperatureOption_Medium",
+        5: "TemperatureOption_High",
+        6: "TemperatureOption_Max",
+        255: "TemperatureOption_DontCare"   
     }.get(Erd_RamCycleHistoryRecord_temperatureOptionAtStart)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_temperatureOptionAtStart)
 
     Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = ERDS[6]
     Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = {
-        "0": "TemperatureOption_Disabled",
-        "1": "TemperatureOption_NoHeat",
-        "2": "TemperatureOption_ExtraLow",
-        "3": "TemperatureOption_Low",
-        "4": "TemperatureOption_Medium",
-        "5": "TemperatureOption_High",
-        "6": "TemperatureOption_Max",
-        "255": "TemperatureOption_DontCare"       
+        0: "TemperatureOption_Disabled",
+        1: "TemperatureOption_NoHeat",
+        2: "TemperatureOption_ExtraLow",
+        3: "TemperatureOption_Low",
+        4: "TemperatureOption_Medium",
+        5: "TemperatureOption_High",
+        6: "TemperatureOption_Max",
+        255: "TemperatureOption_DontCare"       
     }.get(Erd_RamCycleHistoryRecord_temperatureOptionAtEnd)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_temperatureOptionAtEnd)
 
     Erd_CurrentInletTemperature = ERDS[6]
-    ERDS_LIST.append(Erd_CurrentInletTemperature)
+    ERDS_LIST.append(str(Erd_CurrentInletTemperature))
 
+    Erd_CurrentOutletTemperature = ERDS_LIST[7]
+    ERDS_LIST.append(str(Erd_CurrentOutletTemperature))
+
+    Erd_OverTemperatureMaxInletTemperature = ERDS_LIST[8]
+    ERDS_LIST.append(str(Erd_OverTemperatureMaxInletTemperature))
+
+    Erd_HeaterRelay1 =ERDS_LIST[9]
+    ERDS_LIST.append(str(Erd_HeaterRelay1))
     
+    Erd_HeaterRelay2 =ERDS_LIST[10]
+    ERDS_LIST.append(str(Erd_HeaterRelay2))
+
+    Erd_MaxTemperatureSlope =ERDS_LIST[10]
+    ERDS_LIST.append(str(Erd_MaxTemperatureSlope))
 
     return ERDS_LIST
+
+print(ERDS_TO_WRITE([0, 1, 2, 3, 4, 5, 6, 7]))
