@@ -1,7 +1,7 @@
 def ERDS_TO_WRITE(ERDS):
     ERDS_LIST = []
 
-    Erd_CurrentSystemState = ERDS[0]
+    Erd_CurrentSystemState = int(ERDS[0])
     Erd_CurrentSystemState = {                                           
         0: "SystemState_StartUp",
         1: "SystemState_Idle",
@@ -16,7 +16,7 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_CurrentSystemState)
     ERDS_LIST.append(Erd_CurrentSystemState)
 
-    Erd_CycleSelected = ERDS[1]
+    Erd_CycleSelected = int(ERDS[1])
     Erd_CycleSelected = {
         0:  "CycleSelected_NotDefined",
         1:  "CycleSelected_BasketClean",
@@ -69,7 +69,7 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_CycleSelected)
     ERDS_LIST.append(Erd_CycleSelected)
     
-    Erd_EStarSensorDryRequested = ERDS[2]
+    Erd_EStarSensorDryRequested = int(ERDS[2])
     Erd_EStarSensorDryRequested = {
         0: "EStarOption_Disabled",
         1: "EStarOption_Enabled",
@@ -78,7 +78,7 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_EStarSensorDryRequested)
     ERDS_LIST.append(Erd_EStarSensorDryRequested)
 
-    Erd_RamCycleHistoryRecord_drynessOptionAtStart = ERDS[3]
+    Erd_RamCycleHistoryRecord_drynessOptionAtStart = int(ERDS[3])
     Erd_RamCycleHistoryRecord_drynessOptionAtStart = {
         0: "DrynessOption_Disabled",
         1: "DrynessOption_Minimum",
@@ -91,7 +91,7 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_RamCycleHistoryRecord_drynessOptionAtStart)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_drynessOptionAtStart)
 
-    Erd_RamCycleHistoryRecord_drynessOptionAtEnd = ERDS[4]
+    Erd_RamCycleHistoryRecord_drynessOptionAtEnd = int(ERDS[4])
     Erd_RamCycleHistoryRecord_drynessOptionAtEnd = {
         0: "DrynessOption_Disabled",
         1: "DrynessOption_Minimum",
@@ -104,7 +104,7 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_RamCycleHistoryRecord_drynessOptionAtEnd)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_drynessOptionAtEnd)
 
-    Erd_RamCycleHistoryRecord_temperatureOptionAtStart = ERDS[5]
+    Erd_RamCycleHistoryRecord_temperatureOptionAtStart = int(ERDS[5])
     Erd_RamCycleHistoryRecord_temperatureOptionAtStart = {
         0: "TemperatureOption_Disabled",
         1: "TemperatureOption_NoHeat",
@@ -117,7 +117,7 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_RamCycleHistoryRecord_temperatureOptionAtStart)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_temperatureOptionAtStart)
 
-    Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = ERDS[6]
+    Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = int(ERDS[6])
     Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = {
         0: "TemperatureOption_Disabled",
         1: "TemperatureOption_NoHeat",
@@ -130,64 +130,65 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_RamCycleHistoryRecord_temperatureOptionAtEnd)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_temperatureOptionAtEnd)
 
-    Erd_CurrentInletTemperature = ERDS[7]
+    Erd_CurrentInletTemperature = int(ERDS[7])
     ERDS_LIST.append(str(Erd_CurrentInletTemperature))
 
-    Erd_CurrentOutletTemperature = ERDS[8]
+    Erd_CurrentOutletTemperature = int(ERDS[8])
     ERDS_LIST.append(str(Erd_CurrentOutletTemperature))
 
-    Erd_OverTemperatureMaxInletTemperature = ERDS[9]
+    Erd_OverTemperatureMaxInletTemperature = int(ERDS[9])
     ERDS_LIST.append(str(Erd_OverTemperatureMaxInletTemperature))
 
-    Erd_HeaterRelay1 =ERDS[10]
+    Erd_HeaterRelay1 = int(ERDS[10])
     ERDS_LIST.append(str(Erd_HeaterRelay1))
     
-    Erd_HeaterRelay2 =ERDS[11]
+    Erd_HeaterRelay2 = int(ERDS[11])
     ERDS_LIST.append(str(Erd_HeaterRelay2))
 
-    Erd_MaxTemperatureSlope = ERDS[12]
+    Erd_MaxTemperatureSlope = int(ERDS[12])
     ERDS_LIST.append(str(Erd_MaxTemperatureSlope))
- 
-    Erd_HeatControlParametric = ERDS[13]
+
+    #TODO
+    Erd_HeatControlParametric = int(ERDS[13])
     ERDS_LIST.append(str(Erd_HeatControlParametric))
 
-    Erd_MinimumFilteredVoltageFromMc = ERDS[14]
+    Erd_MinimumFilteredVoltageFromMc = int(ERDS[14])
     ERDS_LIST.append(str(Erd_MinimumFilteredVoltageFromMc))
 
-    Erd_FilteredMoistureSensor = ERDS[15]
+    Erd_FilteredMoistureSensor = int(ERDS[15])
     ERDS_LIST.append(str(Erd_FilteredMoistureSensor))
     
-    Erd_SmoothMoistureReading = ERDS[16]
+    Erd_SmoothMoistureReading = int(ERDS[16])
     ERDS_LIST.append(str(Erd_SmoothMoistureReading))
 
-    Erd_CalculatedCurvature = ERDS[17]
+    Erd_CalculatedCurvature = int(ERDS[17])
     ERDS_LIST.append(str(Erd_CalculatedCurvature))
 
-    Erd_CurvatureOccurredCount = ERDS[18]
+    Erd_CurvatureOccurredCount = int(ERDS[18])
     ERDS_LIST.append(str(Erd_CurvatureOccurredCount))    
 
-    Erd_TrimmerInhibitRelay1 = ERDS[19]
+    Erd_TrimmerInhibitRelay1 = int(ERDS[19])
     Erd_TrimmerInhibitRelay1 = {
         0: "False",
         1: "True"
     }.get(Erd_TrimmerInhibitRelay1)
     ERDS_LIST.append(Erd_TrimmerInhibitRelay1)
 
-    Erd_TrimmerInhibitRelay2 = ERDS[20]
+    Erd_TrimmerInhibitRelay2 = int(ERDS[20])
     Erd_TrimmerInhibitRelay2 = {
         0: "False",
         1: "True"
     }.get(Erd_TrimmerInhibitRelay2)
     ERDS_LIST.append(Erd_TrimmerInhibitRelay2)
 
-    Erd_TrimmerBothCoilInhibitRequest = ERDS[21]
+    Erd_TrimmerBothCoilInhibitRequest = int(ERDS[21])
     Erd_TrimmerBothCoilInhibitRequest = {
         0: "False",
         1: "True"
     }.get(Erd_TrimmerBothCoilInhibitRequest)
     ERDS_LIST.append(Erd_TrimmerBothCoilInhibitRequest)
 
-    Erd_DrumMotorState = ERDS[22]
+    Erd_DrumMotorState = int(ERDS[22])
     Erd_DrumMotorState = {
         0: "DrumMotorState_Off",
         1: "DrumMotorState_Normal",
@@ -196,23 +197,25 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_DrumMotorState)
     ERDS_LIST.append(Erd_DrumMotorState)
 
-    Erd_FallbackHeatControlMethodStatus = ERDS[23]
+    Erd_FallbackHeatControlMethodStatus = int(ERDS[23])
     Erd_FallbackHeatControlMethodStatus = {
         0: "False",
         1: "True"
     }.get(Erd_FallbackHeatControlMethodStatus)
     ERDS_LIST.append(Erd_FallbackHeatControlMethodStatus)    
 
+    #TODO
     Erd_ApplicationVersion = ERDS[24]
     ERDS_LIST.append(str(Erd_ApplicationVersion))
 
+    #TODO
     Erd_ParametricVersion = ERDS[25]
     ERDS_LIST.append(str(Erd_ParametricVersion))
 
-    Erd_Personality = ERDS[26]
+    Erd_Personality = int(ERDS[26])
     ERDS_LIST.append(str(Erd_Personality))
 
-    Erd_DrynessOption = ERDS[27]
+    Erd_DrynessOption = int(ERDS[27])
     Erd_DrynessOption = {
         0: "DrynessOption_Disabled",
         1: "DrynessOption_Minimum",
@@ -225,7 +228,7 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_DrynessOption)
     ERDS_LIST.append(Erd_DrynessOption)
 
-    Erd_VentRestriction = ERDS[28]
+    Erd_VentRestriction = int(ERDS[28])
     Erd_VentRestriction = {
         0: "VentRestriction_Unknown",
         1: "VentRestriction_Small",
@@ -233,7 +236,7 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_VentRestriction)
     ERDS_LIST.append(Erd_VentRestriction)    
 
-    Erd_LoadSizeByAggregation = ERDS[29]
+    Erd_LoadSizeByAggregation = int(ERDS[29])
     Erd_LoadSizeByAggregation = {
         0: "LoadSize_Unknown",
         1: "LoadSize_Small",
@@ -241,7 +244,7 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_LoadSizeByAggregation)
     ERDS_LIST.append(Erd_LoadSizeByAggregation) 
 
-    Erd_LoadSizeByContact = ERDS[30]
+    Erd_LoadSizeByContact = int(ERDS[30])
     Erd_LoadSizeByContact = {
         0: "LoadSize_Unknown",
         1: "LoadSize_Small",
@@ -249,7 +252,7 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_LoadSizeByContact)
     ERDS_LIST.append(Erd_LoadSizeByContact) 
 
-    Erd_LoadSizeByTemperature = ERDS[31]
+    Erd_LoadSizeByTemperature = int(ERDS[31])
     Erd_LoadSizeByTemperature = {
         0: "LoadSize_Unknown",
         1: "LoadSize_Small",
@@ -257,33 +260,33 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_LoadSizeByTemperature)
     ERDS_LIST.append(Erd_LoadSizeByTemperature) 
 
-    Erd_TargetMoistureVoltageHasBeenReached = ERDS[32]
+    Erd_TargetMoistureVoltageHasBeenReached = int(ERDS[32])
     Erd_TargetMoistureVoltageHasBeenReached = {
         0: "False",
         1: "True"
     }.get(Erd_TargetMoistureVoltageHasBeenReached)
     ERDS_LIST.append(Erd_TargetMoistureVoltageHasBeenReached)
     
-    Erd_TargetMoistureVoltage = ERDS[33]
+    Erd_TargetMoistureVoltage = int(ERDS[33])
     ERDS_LIST.append(str(Erd_TargetMoistureVoltage))
     
-    Erd_TotalDryTimeCalculatorTimeMultiplierX100 = ERDS[34]
+    Erd_TotalDryTimeCalculatorTimeMultiplierX100 = int(ERDS[34])
     ERDS_LIST.append(str(Erd_TotalDryTimeCalculatorTimeMultiplierX100))
 
-    Erd_TotalDryTimeCalculatorTimeAdderSeconds = ERDS[35]
+    Erd_TotalDryTimeCalculatorTimeAdderSeconds = int(ERDS[35])
     ERDS_LIST.append(str(Erd_TotalDryTimeCalculatorTimeAdderSeconds))
 
     #TODO
     Erd_SensorDryTemperatureMultiplierx100 = ERDS[36]
     ERDS_LIST.append(Erd_SensorDryTemperatureMultiplierx100)
 
-    Erd_TimeToReachTargetVoltageSeconds = ERDS[37]
+    Erd_TimeToReachTargetVoltageSeconds = int(ERDS[41])
     ERDS_LIST.append(str(Erd_TimeToReachTargetVoltageSeconds))
 
-    Erd_SensingCycleTotalDryingTimeSeconds = ERDS[38]
+    Erd_SensingCycleTotalDryingTimeSeconds = int(ERDS[42])
     ERDS_LIST.append(str(Erd_SensingCycleTotalDryingTimeSeconds))
 
-    Erd_DrumGroundWatchdogResult = ERDS[9]
+    Erd_DrumGroundWatchdogResult = int(ERDS[43])
     Erd_DrumGroundWatchdogResult = {
         0: "DrumGroundWatchdogResult_Unknown",
         1: "DrumGroundWatchdogResult_NotExpired",
@@ -291,7 +294,100 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_DrumGroundWatchdogResult)
     ERDS_LIST.append(Erd_DrumGroundWatchdogResult)
 
+    Erd_ClothDampnessCheckResult = int(ERDS[44])
+    Erd_ClothDampnessCheckResult = {
+        0: "ClothDampnessCheckResult_Undefined",
+        1: "ClothDampnessCheckResult_Disabled",
+        2: "ClothDampnessCheckResult_Idle",
+        3: "ClothDampnessCheckResult_WaitForFilteredVoltageReset",
+        4: "ClothDampnessCheckResult_Sensing",
+        5: "ClothDampnessCheckResult_Paused",
+        6: "ClothDampnessCheckResult_PausedWhileWaitingForFilteredVoltageReset",
+        7: "ClothDampnessCheckResult_TargetVoltageReached",
+        8: "ClothDampnessCheckResult_TargetVoltageReachedByExpiredWatchdog"
+    }.get(Erd_ClothDampnessCheckResult)
+    ERDS_LIST.append(Erd_ClothDampnessCheckResult)
+
+    Erd_Fault_DrumGroundWatchdogDetection = int(ERDS[45])
+    Erd_Fault_DrumGroundWatchdogDetection = {
+        0: "False",
+        1: "True"
+    }.get(Erd_Fault_DrumGroundWatchdogDetection)
+    ERDS_LIST.append(Erd_Fault_DrumGroundWatchdogDetection)
+
+    Erd_SteamValveCycleCountRam = int(ERDS[46])
+    ERDS_LIST.append(str(Erd_SteamValveCycleCountRam))
+
+    Erd_SteamValveOnTimeDurationInSecondsRam = int(ERDS[47])
+    ERDS_LIST.append(str(Erd_SteamValveOnTimeDurationInSecondsRam))   
+
+    Erd_CoolDownStepStatus = int(ERDS[48])
+    Erd_CoolDownStepStatus = {
+        0: "CycleStepState_Unknown",
+        1: "CycleStepState_Initialized",
+        2: "CycleStepState_Selected",
+        3: "CycleStepState_Deselected",
+        4: "CycleStepState_Started",
+        5: "CycleStepState_Stopped",
+        6: "CycleStepState_Paused",
+        7: "CycleStepState_Resumed",
+        8: "CycleStepState_Completed",
+        9: "CycleStepState_Max"
+    }.get(Erd_CoolDownStepStatus)
+    ERDS_LIST.append(Erd_CoolDownStepStatus)    
+
+    Erd_ExtendedTumbleStepStatus = int(ERDS[49])
+    Erd_ExtendedTumbleStepStatus = {
+        0: "CycleStepState_Unknown",
+        1: "CycleStepState_Initialized",
+        2: "CycleStepState_Selected",
+        3: "CycleStepState_Deselected",
+        4: "CycleStepState_Started",
+        5: "CycleStepState_Stopped",
+        6: "CycleStepState_Paused",
+        7: "CycleStepState_Resumed",
+        8: "CycleStepState_Completed",
+        9: "CycleStepState_Max"
+    }.get(Erd_ExtendedTumbleStepStatus)
+    ERDS_LIST.append(Erd_ExtendedTumbleStepStatus)    
+
+    Erd_SteamStepStatus = int(ERDS[50])
+    Erd_SteamStepStatus = {
+        0: "CycleStepState_Unknown",
+        1: "CycleStepState_Initialized",
+        2: "CycleStepState_Selected",
+        3: "CycleStepState_Deselected",
+        4: "CycleStepState_Started",
+        5: "CycleStepState_Stopped",
+        6: "CycleStepState_Paused",
+        7: "CycleStepState_Resumed",
+        8: "CycleStepState_Completed",
+        9: "CycleStepState_Max"
+    }.get(Erd_SteamStepStatus)
+    ERDS_LIST.append(Erd_SteamStepStatus) 
+
+    Erd_EndOfCycleReason = int(ERDS[51])
+    Erd_EndOfCycleReason = {
+        0: "EndOfCycleReason_NA",
+        1: "EndOfCycleReason_EmptyDrum",
+        2: "EndOfCycleReason_DryLoad",
+        3: "EndOfCycleReason_CoolDownPaused",
+        4: "EndOfCycleReason_ExtendedTumblePaused",
+        5: "EndOfCycleReason_KnobChange",
+        6: "EndOfCycleReason_PowerButtonPressed",
+        7: "EndOfCycleReason_CycleComplete",
+        8: "EndOfCycleReason_EventSequenceCommunicationIssue",
+        9: "EndOfCycleReason_CriticalFault",
+        10: "EndOfCycleReason_RemoteStop",
+        11: "EndOfCycleReason_ExtremeHeatDetected",
+        255: "EndOfCycleReason_DontCare"
+    }.get(Erd_EndOfCycleReason)
+    ERDS_LIST.append(Erd_EndOfCycleReason) 
 
     return ERDS_LIST
 
-print(ERDS_TO_WRITE([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]))
+DATA_TO_WRITE = ["Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_EStarSensorDryRequested", "Erd_RamCycleHistoryRecord_drynessOptionAtStart", "Erd_RamCycleHistoryRecord_drynessOptionAtEnd", "Erd_RamCycleHistoryRecord_temperatureOptionAtStart", "Erd_RamCycleHistoryRecord_temperatureOptionAtEnd", "Erd_CurrentInletTemperature","Erd_CurrentOutletTemperature", "Erd_OverTemperatureMaxInletTemperature", "Erd_HeaterRelay1", "Erd_HeaterRelay2", "Erd_MaxTemperatureSlope", "Erd_HeatControlParametric", "Erd_MinimumFilteredVoltageFromMc", "Erd_FilteredMoistureSensor", "Erd_SmoothMoistureReading", "Erd_CalculatedCurvature", "Erd_CurvatureOccurredCount", "Erd_TrimmerInhibitRelay1", "Erd_TrimmerInhibitRelay2", "Erd_TrimmerBothCoilInhibitRequest", "Erd_DrumMotorState", "Erd_FallbackHeatControlMethodStatus", "Erd_ApplicationVersion", "Erd_ParametricVersion", "Erd_Personality", "Erd_DrynessOption", "Erd_VentRestriction", "Erd_LoadSizeByAggregation", "Erd_LoadSizeByContact", "Erd_LoadSizeByTemperature", "Erd_TargetMoistureVoltageHasBeenReached", "Erd_TargetMoistureVoltage", "Erd_TotalDryTimeCalculatorTimeMultiplierX100", "Erd_TotalDryTimeCalculatorTimeAdderSeconds", "Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierEcoDry", "Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierExtraLow", "Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierLow", "Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierMedium", "Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierHigh","Erd_TimeToReachTargetVoltageSeconds", "Erd_SensingCycleTotalDryingTimeSeconds", "Erd_DrumGroundWatchdogResult", "Erd_ClothDampnessCheckResult", "Erd_Fault_DrumGroundWatchdogDetection", "Erd_SteamValveCycleCountRam", "Erd_SteamValveOnTimeDurationInSecondsRam", "Erd_CoolDownStepStatus", "Erd_ExtendedTumbleStepStatus", "Erd_SteamStepStatus", "Erd_EndOfCycleReason"]
+
+print(len(DATA_TO_WRITE))
+
+# print(ERDS_TO_WRITE([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]))
