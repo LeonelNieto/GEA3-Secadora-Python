@@ -130,24 +130,168 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_RamCycleHistoryRecord_temperatureOptionAtEnd)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_temperatureOptionAtEnd)
 
-    Erd_CurrentInletTemperature = ERDS[6]
+    Erd_CurrentInletTemperature = ERDS[7]
     ERDS_LIST.append(str(Erd_CurrentInletTemperature))
 
-    Erd_CurrentOutletTemperature = ERDS_LIST[7]
+    Erd_CurrentOutletTemperature = ERDS[8]
     ERDS_LIST.append(str(Erd_CurrentOutletTemperature))
 
-    Erd_OverTemperatureMaxInletTemperature = ERDS_LIST[8]
+    Erd_OverTemperatureMaxInletTemperature = ERDS[9]
     ERDS_LIST.append(str(Erd_OverTemperatureMaxInletTemperature))
 
-    Erd_HeaterRelay1 =ERDS_LIST[9]
+    Erd_HeaterRelay1 =ERDS[10]
     ERDS_LIST.append(str(Erd_HeaterRelay1))
     
-    Erd_HeaterRelay2 =ERDS_LIST[10]
+    Erd_HeaterRelay2 =ERDS[11]
     ERDS_LIST.append(str(Erd_HeaterRelay2))
 
-    Erd_MaxTemperatureSlope =ERDS_LIST[10]
+    Erd_MaxTemperatureSlope = ERDS[12]
     ERDS_LIST.append(str(Erd_MaxTemperatureSlope))
+ 
+    Erd_HeatControlParametric = ERDS[13]
+    ERDS_LIST.append(str(Erd_HeatControlParametric))
+
+    Erd_MinimumFilteredVoltageFromMc = ERDS[14]
+    ERDS_LIST.append(str(Erd_MinimumFilteredVoltageFromMc))
+
+    Erd_FilteredMoistureSensor = ERDS[15]
+    ERDS_LIST.append(str(Erd_FilteredMoistureSensor))
+    
+    Erd_SmoothMoistureReading = ERDS[16]
+    ERDS_LIST.append(str(Erd_SmoothMoistureReading))
+
+    Erd_CalculatedCurvature = ERDS[17]
+    ERDS_LIST.append(str(Erd_CalculatedCurvature))
+
+    Erd_CurvatureOccurredCount = ERDS[18]
+    ERDS_LIST.append(str(Erd_CurvatureOccurredCount))    
+
+    Erd_TrimmerInhibitRelay1 = ERDS[19]
+    Erd_TrimmerInhibitRelay1 = {
+        0: "False",
+        1: "True"
+    }.get(Erd_TrimmerInhibitRelay1)
+    ERDS_LIST.append(Erd_TrimmerInhibitRelay1)
+
+    Erd_TrimmerInhibitRelay2 = ERDS[20]
+    Erd_TrimmerInhibitRelay2 = {
+        0: "False",
+        1: "True"
+    }.get(Erd_TrimmerInhibitRelay2)
+    ERDS_LIST.append(Erd_TrimmerInhibitRelay2)
+
+    Erd_TrimmerBothCoilInhibitRequest = ERDS[21]
+    Erd_TrimmerBothCoilInhibitRequest = {
+        0: "False",
+        1: "True"
+    }.get(Erd_TrimmerBothCoilInhibitRequest)
+    ERDS_LIST.append(Erd_TrimmerBothCoilInhibitRequest)
+
+    Erd_DrumMotorState = ERDS[22]
+    Erd_DrumMotorState = {
+        0: "DrumMotorState_Off",
+        1: "DrumMotorState_Normal",
+        2: "DrumMotorState_Reverse",
+        3: "DrumMotorState_Max"       
+    }.get(Erd_DrumMotorState)
+    ERDS_LIST.append(Erd_DrumMotorState)
+
+    Erd_FallbackHeatControlMethodStatus = ERDS[23]
+    Erd_FallbackHeatControlMethodStatus = {
+        0: "False",
+        1: "True"
+    }.get(Erd_FallbackHeatControlMethodStatus)
+    ERDS_LIST.append(Erd_FallbackHeatControlMethodStatus)    
+
+    Erd_ApplicationVersion = ERDS[24]
+    ERDS_LIST.append(str(Erd_ApplicationVersion))
+
+    Erd_ParametricVersion = ERDS[25]
+    ERDS_LIST.append(str(Erd_ParametricVersion))
+
+    Erd_Personality = ERDS[26]
+    ERDS_LIST.append(str(Erd_Personality))
+
+    Erd_DrynessOption = ERDS[27]
+    Erd_DrynessOption = {
+        0: "DrynessOption_Disabled",
+        1: "DrynessOption_Minimum",
+        2: "DrynessOption_LessDry",
+        3: "DrynessOption_Dry",
+        4: "DrynessOption_MoreDry",
+        5: "DrynessOption_ExtraDry",
+        6: "DrynessOption_Max",
+        255: "DrynessOption_DontCare"
+    }.get(Erd_DrynessOption)
+    ERDS_LIST.append(Erd_DrynessOption)
+
+    Erd_VentRestriction = ERDS[28]
+    Erd_VentRestriction = {
+        0: "VentRestriction_Unknown",
+        1: "VentRestriction_Small",
+        2: "VentRestriction_Large"
+    }.get(Erd_VentRestriction)
+    ERDS_LIST.append(Erd_VentRestriction)    
+
+    Erd_LoadSizeByAggregation = ERDS[29]
+    Erd_LoadSizeByAggregation = {
+        0: "LoadSize_Unknown",
+        1: "LoadSize_Small",
+        2: "LoadSize_Large"
+    }.get(Erd_LoadSizeByAggregation)
+    ERDS_LIST.append(Erd_LoadSizeByAggregation) 
+
+    Erd_LoadSizeByContact = ERDS[30]
+    Erd_LoadSizeByContact = {
+        0: "LoadSize_Unknown",
+        1: "LoadSize_Small",
+        2: "LoadSize_Large"
+    }.get(Erd_LoadSizeByContact)
+    ERDS_LIST.append(Erd_LoadSizeByContact) 
+
+    Erd_LoadSizeByTemperature = ERDS[31]
+    Erd_LoadSizeByTemperature = {
+        0: "LoadSize_Unknown",
+        1: "LoadSize_Small",
+        2: "LoadSize_Large"
+    }.get(Erd_LoadSizeByTemperature)
+    ERDS_LIST.append(Erd_LoadSizeByTemperature) 
+
+    Erd_TargetMoistureVoltageHasBeenReached = ERDS[32]
+    Erd_TargetMoistureVoltageHasBeenReached = {
+        0: "False",
+        1: "True"
+    }.get(Erd_TargetMoistureVoltageHasBeenReached)
+    ERDS_LIST.append(Erd_TargetMoistureVoltageHasBeenReached)
+    
+    Erd_TargetMoistureVoltage = ERDS[33]
+    ERDS_LIST.append(str(Erd_TargetMoistureVoltage))
+    
+    Erd_TotalDryTimeCalculatorTimeMultiplierX100 = ERDS[34]
+    ERDS_LIST.append(str(Erd_TotalDryTimeCalculatorTimeMultiplierX100))
+
+    Erd_TotalDryTimeCalculatorTimeAdderSeconds = ERDS[35]
+    ERDS_LIST.append(str(Erd_TotalDryTimeCalculatorTimeAdderSeconds))
+
+    #TODO
+    Erd_SensorDryTemperatureMultiplierx100 = ERDS[36]
+    ERDS_LIST.append(Erd_SensorDryTemperatureMultiplierx100)
+
+    Erd_TimeToReachTargetVoltageSeconds = ERDS[37]
+    ERDS_LIST.append(str(Erd_TimeToReachTargetVoltageSeconds))
+
+    Erd_SensingCycleTotalDryingTimeSeconds = ERDS[38]
+    ERDS_LIST.append(str(Erd_SensingCycleTotalDryingTimeSeconds))
+
+    Erd_DrumGroundWatchdogResult = ERDS[9]
+    Erd_DrumGroundWatchdogResult = {
+        0: "DrumGroundWatchdogResult_Unknown",
+        1: "DrumGroundWatchdogResult_NotExpired",
+        2: "DrumGroundWatchdogResult_Expired"
+    }.get(Erd_DrumGroundWatchdogResult)
+    ERDS_LIST.append(Erd_DrumGroundWatchdogResult)
+
 
     return ERDS_LIST
 
-print(ERDS_TO_WRITE([0, 1, 2, 3, 4, 5, 6, 7]))
+print(ERDS_TO_WRITE([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]))
