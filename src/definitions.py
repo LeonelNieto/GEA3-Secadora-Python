@@ -148,9 +148,43 @@ def ERDS_TO_WRITE(ERDS):
     Erd_MaxTemperatureSlope = int(ERDS[12])
     ERDS_LIST.append(str(Erd_MaxTemperatureSlope))
 
-    #TODO
-    Erd_HeatControlParametric = int(ERDS[13])
-    ERDS_LIST.append(str(Erd_HeatControlParametric))
+    Erd_HeatControlParametric = ERDS[13]
+    Erd_HeatControlParametricheaterData0_inletTemperatureLowerLimit = str(int(Erd_HeatControlParametric[0:4]))
+    ERDS_LIST.append(Erd_HeatControlParametricheaterData0_inletTemperatureLowerLimit)
+    Erd_HeatControlParametric_heaterData0_inletTemperatureUpperLimit = str(int(Erd_HeatControlParametric[4:8]))
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData0_inletTemperatureUpperLimit)
+    Erd_HeatControlParametric_heaterData0_outletTemperatureLowerLimit = str(int(Erd_HeatControlParametric[8:12]))
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData0_outletTemperatureLowerLimit)
+    Erd_HeatControlParametric_heaterData0_outletTemperatureUpperLimit = str(int(Erd_HeatControlParametric[12:16]))
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData0_outletTemperatureUpperLimit)
+    Erd_HeatControlParametric_heaterData0_onTimeSeconds = str(int(Erd_HeatControlParametric[16:18]))
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData0_onTimeSeconds)
+    Erd_HeatControlParametric_heaterData0_offTimeSeconds = str(int(Erd_HeatControlParametric[18:20]))
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData0_offTimeSeconds)
+    Erd_HeatControlParametric_heaterData0_relayIsEnabled = int(Erd_HeatControlParametric[20:22])
+    Erd_HeatControlParametric_heaterData0_relayIsEnabled = {
+        0: "False",
+        1: "True"
+    }.get(Erd_HeatControlParametric_heaterData0_relayIsEnabled)
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData0_relayIsEnabled)
+    Erd_HeatControlParametric_heaterData1_inletTemperatureLowerLimit = str(int(Erd_HeatControlParametric[24:28]))
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData1_inletTemperatureLowerLimit)
+    Erd_HeatControlParametric_heaterData1_inletTemperatureUpperLimit = str(int(Erd_HeatControlParametric[28:32]))
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData1_inletTemperatureUpperLimit)
+    Erd_HeatControlParametric_heaterData1_outletTemperatureLowerLimit = str(int(Erd_HeatControlParametric[32:36]))
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData1_outletTemperatureLowerLimit)
+    Erd_HeatControlParametric_heaterData1_outletTemperatureUpperLimit = str(int(Erd_HeatControlParametric[36:40]))
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData1_outletTemperatureUpperLimit)
+    Erd_HeatControlParametric_heaterData1_onTimeSeconds = str(int(Erd_HeatControlParametric[40:42]))
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData1_onTimeSeconds)
+    Erd_HeatControlParametric_heaterData1_offTimeSeconds = str(int(Erd_HeatControlParametric[42:44]))
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData1_offTimeSeconds)
+    Erd_HeatControlParametric_heaterData1_relayIsEnabled = int(Erd_HeatControlParametric[44:46])
+    Erd_HeatControlParametric_heaterData1_relayIsEnabled = {
+        0: "False",
+        1: "True"
+    }.get(Erd_HeatControlParametric_heaterData1_relayIsEnabled)
+    ERDS_LIST.append(Erd_HeatControlParametric_heaterData1_relayIsEnabled)
 
     Erd_MinimumFilteredVoltageFromMc = int(ERDS[14])
     ERDS_LIST.append(str(Erd_MinimumFilteredVoltageFromMc))
@@ -204,13 +238,19 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_FallbackHeatControlMethodStatus)
     ERDS_LIST.append(Erd_FallbackHeatControlMethodStatus)    
 
-    #TODO
     Erd_ApplicationVersion = ERDS[24]
-    ERDS_LIST.append(str(Erd_ApplicationVersion))
+    Erd_ApplicationVersion_criticalMajor = str(int(Erd_ApplicationVersion[0:2]))
+    Erd_ApplicationVersion_criticalMinor = str(int(Erd_ApplicationVersion[2:4]))
+    Erd_ApplicationVersion_major = str(int(Erd_ApplicationVersion[4:6]))
+    Erd_ApplicationVersion_minor = str(int(Erd_ApplicationVersion[6:8]))
+    ERDS_LIST.append(Erd_ApplicationVersion_criticalMajor + "." + Erd_ApplicationVersion_criticalMinor + "." + Erd_ApplicationVersion_major + "." + Erd_ApplicationVersion_minor)
 
-    #TODO
     Erd_ParametricVersion = ERDS[25]
-    ERDS_LIST.append(str(Erd_ParametricVersion))
+    Erd_ParametricVersion_criticalMajor = str(int(Erd_ParametricVersion[0:2]))
+    Erd_ParametricVersion_criticalMinor = str(int(Erd_ParametricVersion[2:4]))
+    Erd_ParametricVersion_major = str(int(Erd_ParametricVersion[4:6]))
+    Erd_ParametricVersion_minor = str(int(Erd_ParametricVersion[6:8]))
+    ERDS_LIST.append(Erd_ParametricVersion_criticalMajor + "." + Erd_ParametricVersion_criticalMinor + "." + Erd_ParametricVersion_major + "." + Erd_ParametricVersion_minor)
 
     Erd_Personality = int(ERDS[26])
     ERDS_LIST.append(str(Erd_Personality))
@@ -277,7 +317,7 @@ def ERDS_TO_WRITE(ERDS):
     ERDS_LIST.append(str(Erd_TotalDryTimeCalculatorTimeAdderSeconds))
 
     #TODO
-    Erd_SensorDryTemperatureMultiplierx100 = ERDS[36]
+    Erd_SensorDryTemperatureMultiplierx100 = ERDS[36] 
     ERDS_LIST.append(Erd_SensorDryTemperatureMultiplierx100)
 
     Erd_TimeToReachTargetVoltageSeconds = int(ERDS[41])

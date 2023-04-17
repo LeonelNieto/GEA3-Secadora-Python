@@ -49,7 +49,7 @@ def ReadButton(dst, ERD):
 HEADERS = ["Hora", "Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_EStarSensorDryRequested",
                     "Erd_RamCycleHistoryRecord.drynessOptionAtStart", "Erd_RamCycleHistoryRecord.drynessOptionAtEnd", "Erd_RamCycleHistoryRecord.temperatureOptionAtStart", 
                     "Erd_RamCycleHistoryRecord.temperatureOptionAtEnd", "Erd_CurrentInletTemperature","Erd_CurrentOutletTemperature", "Erd_OverTemperatureMaxInletTemperature",
-                    "Erd_HeaterRelay1", "Erd_HeaterRelay2", "Erd_MaxTemperatureSlope", "Erd_HeatControlParametric", "Erd_MinimumFilteredVoltageFromMc", "Erd_FilteredMoistureSensor",
+                    "Erd_HeaterRelay1", "Erd_HeaterRelay2", "Erd_MaxTemperatureSlope", "Erd_HeatControlParametric.heaterData[0].inletTemperatureLowerLimit", "Erd_HeatControlParametric.heaterData[0].inletTemperatureUpperLimit", "Erd_HeatControlParametric.heaterData[0].outletTemperatureLowerLimit", "Erd_HeatControlParametric.heaterData[0].outletTemperatureUpperLimit", "Erd_HeatControlParametric.heaterData[0].onTimeSeconds", "Erd_HeatControlParametric.heaterData[0].offTimeSeconds", "Erd_HeatControlParametric.heaterData[0].relayIsEnabled", "Erd_HeatControlParametric.heaterData[1].inletTemperatureLowerLimit", "Erd_HeatControlParametric.heaterData[1].inletTemperatureUpperLimit", "Erd_HeatControlParametric.heaterData[1].outletTemperatureLowerLimit", "Erd_HeatControlParametric.heaterData[1].outletTemperatureUpperLimit", "Erd_HeatControlParametric.heaterData[1].onTimeSeconds", "Erd_HeatControlParametric.heaterData[1].offTimeSeconds", "Erd_HeatControlParametric.heaterData[1].relayIsEnabled","Erd_MinimumFilteredVoltageFromMc", "Erd_FilteredMoistureSensor",
                     "Erd_SmoothMoistureReading", "Erd_CalculatedCurvature", "Erd_CurvatureOccurredCount", "Erd_TrimmerInhibitRelay1", "Erd_TrimmerInhibitRelay2",
                     "Erd_TrimmerBothCoilInhibitRequest", "Erd_DrumMotorState", "Erd_FallbackHeatControlMethodStatus", "Erd_ApplicationVersion", "Erd_ParametricVersion", 
                     "Erd_Personality", "Erd_DrynessOption", "Erd_VentRestriction", "Erd_LoadSizeByAggregation", "Erd_LoadSizeByContact", "Erd_LoadSizeByTemperature",
@@ -78,13 +78,11 @@ def main():
         Tiempo_Inicio = time.time()
         SetBoard()
         ERDS = []
-
         for ERD in ERD_List:
             Dato = ReadButton("C0", ERD)
             ERDS.append(Dato)
 
-        TimeS = datetime.now().strftime("%H:%M:%S")
-            
+        TimeS = datetime.now().strftime("%H:%M:%S") 
         Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord, Erd_CurrentInletTemperature,Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_HeatControlParametric, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_SensorDryTemperatureMultiplierx100, Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds,Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason = ERDS                                                             
 
         Erd_RamCycleHistoryRecord_drynessOptionAtStart = Erd_RamCycleHistoryRecord[100:102]
