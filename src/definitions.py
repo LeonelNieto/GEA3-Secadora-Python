@@ -316,10 +316,21 @@ def ERDS_TO_WRITE(ERDS):
     Erd_TotalDryTimeCalculatorTimeAdderSeconds = int(ERDS[35])
     ERDS_LIST.append(str(Erd_TotalDryTimeCalculatorTimeAdderSeconds))
 
-    #TODO
-    Erd_SensorDryTemperatureMultiplierx100 = ERDS[36] 
-    ERDS_LIST.append(Erd_SensorDryTemperatureMultiplierx100)
+    Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierEcoDry = str(int(ERDS[36]))
+    ERDS_LIST.append(Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierEcoDry)
 
+    Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierExtraLow = str(int(ERDS[37]))
+    ERDS_LIST.append(Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierExtraLow)
+    
+    Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierLow = str(int(ERDS[38]))
+    ERDS_LIST.append(Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierLow)
+    
+    Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierMedium = str(int(ERDS[39]))
+    ERDS_LIST.append(Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierMedium)
+    
+    Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierHigh = str(int(ERDS[40]))
+    ERDS_LIST.append(Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierHigh)
+        
     Erd_TimeToReachTargetVoltageSeconds = int(ERDS[41])
     ERDS_LIST.append(str(Erd_TimeToReachTargetVoltageSeconds))
 
@@ -426,8 +437,4 @@ def ERDS_TO_WRITE(ERDS):
 
     return ERDS_LIST
 
-DATA_TO_WRITE = ["Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_EStarSensorDryRequested", "Erd_RamCycleHistoryRecord_drynessOptionAtStart", "Erd_RamCycleHistoryRecord_drynessOptionAtEnd", "Erd_RamCycleHistoryRecord_temperatureOptionAtStart", "Erd_RamCycleHistoryRecord_temperatureOptionAtEnd", "Erd_CurrentInletTemperature","Erd_CurrentOutletTemperature", "Erd_OverTemperatureMaxInletTemperature", "Erd_HeaterRelay1", "Erd_HeaterRelay2", "Erd_MaxTemperatureSlope", "Erd_HeatControlParametric", "Erd_MinimumFilteredVoltageFromMc", "Erd_FilteredMoistureSensor", "Erd_SmoothMoistureReading", "Erd_CalculatedCurvature", "Erd_CurvatureOccurredCount", "Erd_TrimmerInhibitRelay1", "Erd_TrimmerInhibitRelay2", "Erd_TrimmerBothCoilInhibitRequest", "Erd_DrumMotorState", "Erd_FallbackHeatControlMethodStatus", "Erd_ApplicationVersion", "Erd_ParametricVersion", "Erd_Personality", "Erd_DrynessOption", "Erd_VentRestriction", "Erd_LoadSizeByAggregation", "Erd_LoadSizeByContact", "Erd_LoadSizeByTemperature", "Erd_TargetMoistureVoltageHasBeenReached", "Erd_TargetMoistureVoltage", "Erd_TotalDryTimeCalculatorTimeMultiplierX100", "Erd_TotalDryTimeCalculatorTimeAdderSeconds", "Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierEcoDry", "Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierExtraLow", "Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierLow", "Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierMedium", "Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierHigh","Erd_TimeToReachTargetVoltageSeconds", "Erd_SensingCycleTotalDryingTimeSeconds", "Erd_DrumGroundWatchdogResult", "Erd_ClothDampnessCheckResult", "Erd_Fault_DrumGroundWatchdogDetection", "Erd_SteamValveCycleCountRam", "Erd_SteamValveOnTimeDurationInSecondsRam", "Erd_CoolDownStepStatus", "Erd_ExtendedTumbleStepStatus", "Erd_SteamStepStatus", "Erd_EndOfCycleReason"]
-
-print(len(DATA_TO_WRITE))
-
-# print(ERDS_TO_WRITE([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]))
+# print(ERDS_TO_WRITE([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "0102010201020102010002030400010200010202010202010201020010201200010100010100001010102000010010101010", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "0102034055010910", "010203405501091", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0 ,0, 0, 0]))
