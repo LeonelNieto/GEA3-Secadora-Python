@@ -1,7 +1,6 @@
 import ReadorWrite
 import verifylength as vrlen
 import serial
-from pathlib import Path
 from datetime import datetime
 import time
 import FileCsv
@@ -14,7 +13,7 @@ def SetBoard():
     ser.bytesize = serial.EIGHTBITS
     ser.parity = serial.PARITY_NONE                                                          
     ser.timeout = 0.5                                                                                                
-    ser.port = "/dev/ttyUSB0"                                                
+    ser.port = 'COM1'                                               
     ser.open()    
     
 def ReadButton(dst, ERD):                                    
@@ -44,30 +43,26 @@ def ReadButton(dst, ERD):
             Is_Correct = False
     return Dato     
 
-########################################   HEADERS   ############################################
-
-HEADERS = ["Hora", "Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_EStarSensorDryRequested",
-                    "Erd_RamCycleHistoryRecord.drynessOptionAtStart", "Erd_RamCycleHistoryRecord.drynessOptionAtEnd", "Erd_RamCycleHistoryRecord.temperatureOptionAtStart", 
-                    "Erd_RamCycleHistoryRecord.temperatureOptionAtEnd", "Erd_CurrentInletTemperature","Erd_CurrentOutletTemperature", "Erd_OverTemperatureMaxInletTemperature",
-                    "Erd_HeaterRelay1", "Erd_HeaterRelay2", "Erd_MaxTemperatureSlope", "Erd_HeatControlParametric.heaterData[0].inletTemperatureLowerLimit", "Erd_HeatControlParametric.heaterData[0].inletTemperatureUpperLimit", "Erd_HeatControlParametric.heaterData[0].outletTemperatureLowerLimit", "Erd_HeatControlParametric.heaterData[0].outletTemperatureUpperLimit", "Erd_HeatControlParametric.heaterData[0].onTimeSeconds", "Erd_HeatControlParametric.heaterData[0].offTimeSeconds", "Erd_HeatControlParametric.heaterData[0].relayIsEnabled", "Erd_HeatControlParametric.heaterData[1].inletTemperatureLowerLimit", "Erd_HeatControlParametric.heaterData[1].inletTemperatureUpperLimit", "Erd_HeatControlParametric.heaterData[1].outletTemperatureLowerLimit", "Erd_HeatControlParametric.heaterData[1].outletTemperatureUpperLimit", "Erd_HeatControlParametric.heaterData[1].onTimeSeconds", "Erd_HeatControlParametric.heaterData[1].offTimeSeconds", "Erd_HeatControlParametric.heaterData[1].relayIsEnabled","Erd_MinimumFilteredVoltageFromMc", "Erd_FilteredMoistureSensor", "Erd_SmoothMoistureReading", "Erd_CalculatedCurvature", "Erd_CurvatureOccurredCount", "Erd_TrimmerInhibitRelay1", "Erd_TrimmerInhibitRelay2",
-                    "Erd_TrimmerBothCoilInhibitRequest", "Erd_DrumMotorState", "Erd_FallbackHeatControlMethodStatus", "Erd_ApplicationVersion", "Erd_ParametricVersion", 
-                    "Erd_Personality", "Erd_DrynessOption", "Erd_VentRestriction", "Erd_LoadSizeByAggregation", "Erd_LoadSizeByContact", "Erd_LoadSizeByTemperature",
-                    "Erd_TargetMoistureVoltageHasBeenReached", "Erd_TargetMoistureVoltage", "Erd_TotalDryTimeCalculatorTimeMultiplierX100", "Erd_TotalDryTimeCalculatorTimeAdderSeconds",
-                    "Erd_SensorDryTemperatureMultiplierx100.temperatureMultiplierEcoDry", "Erd_SensorDryTemperatureMultiplierx100.temperatureMultiplierExtraLow", "Erd_SensorDryTemperatureMultiplierx100.temperatureMultiplierLow", "Erd_SensorDryTemperatureMultiplierx100.temperatureMultiplierMedium", "Erd_SensorDryTemperatureMultiplierx100.temperatureMultiplierHigh","Erd_TimeToReachTargetVoltageSeconds", "Erd_SensingCycleTotalDryingTimeSeconds", "Erd_DrumGroundWatchdogResult", "Erd_ClothDampnessCheckResult", "Erd_Fault_DrumGroundWatchdogDetection", "Erd_SteamValveCycleCountRam",
-                    "Erd_SteamValveOnTimeDurationInSecondsRam", "Erd_CoolDownStepStatus", "Erd_ExtendedTumbleStepStatus", "Erd_SteamStepStatus", "Erd_EndOfCycleReason"]  
-
 TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
-file_name = "Prueba" + diaStr + "_" + TimeStr + ".csv"
-my_file = Path("/home/pi/Desktop/" + file_name)
+path = "C:/Users/LNLMEXID/Desktop/Pruebas Archivos/"
 
-FileCsv.Write_Data_CSV(my_file, ["Date", diaStr])
-FileCsv.Write_Data_CSV(my_file, [""])
-FileCsv.Write_Data_CSV(my_file, HEADERS)
+######################################################### CREATE FILES ####################################################################
+file_Erd_CurrentSystemState = FileCsv.File_CSV("CurrentSystemState", path)
+file_Erd_Erd_CycleSelected = FileCsv.File_CSV("Erd_CycleSelected", path)
+file_Erd_Erd_EStarSensorDryRequested = FileCsv.File_CSV("Erd_EStarSensorDryRequested", path)
+file_Erd_Erd_RamCycleHistoryRecord = FileCsv.File_CSV("Erd_RamCycleHistoryRecord", path)
+file_Erd_Erd_CurrentInletTemperature = FileCsv.File_CSV("Erd_CurrentInletTemperature", path)
 
+######################################################### CREATE HEADERS ##################################################################
+FileCsv.Write_Data_CSV(file_Erd_CurrentSystemState, ["Fecha", "Hora", "Erd_CurrentSystemState"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_CycleSelected, ["Fecha", "Hora", "Erd_CycleSelected"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_EStarSensorDryRequested, ["Fecha", "Hora", "Erd_EStarSensorDryRequested"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_RamCycleHistoryRecord, ["Fecha", "Hora", "Erd_RamCycleHistoryRecord"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_CurrentInletTemperature, ["Fecha", "Hora", "Erd_CurrentInletTemperature"])
 
-######################################## AGREGAR ERDS ############################################
-ERD_List = ["F01B", "200A", "F11F", "F01B", "F15E", "F301", "F302", "F705", "F30C", "F30D", "F0AE", "F06D", "F0AC", "F303", "F322", "F11A", "F119", "F07F", "F080", "F073", "F311",
+######################################################## ERD LIST #########################################################################
+ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30D", "F0AE", "F06D", "F0AC", "F303", "F322", "F11A", "F119", "F07F", "F080", "F073", "F311",
             "F075", "003A", "003B", "FF01", "204D", "F0B2", "F0AF", "F0AB", "F0AD", "F0A9", "F0A8", "F1A5", "F1A6", "F816", "F0BC", "F0A7", "F0C7", "F0BA", "FD98",
             "F1A0", "F1A1", "F0ED", "F116", "F137", "F0AA"]
 
