@@ -122,6 +122,22 @@ FileCsv.Write_Data_CSV(file_Erd_Erd_DrynessOption, ["Fecha", "Hora", "Erd_Drynes
 FileCsv.Write_Data_CSV(file_Erd_Erd_VentRestriction, ["Fecha", "Hora", "Erd_VentRestriction"])
 FileCsv.Write_Data_CSV(file_Erd_Erd_LoadSizeByAggregation, ["Fecha", "Hora", "Erd_LoadSizeByAggregation"])
 FileCsv.Write_Data_CSV(file_Erd_Erd_LoadSizeByContact, ["Fecha", "Hora", "Erd_LoadSizeByContact"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_TargetMoistureVoltageHasBeenReached, ["Fecha", "Hora", "Erd_TargetMoistureVoltageHasBeenReached"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_TargetMoistureVoltage, ["Fecha", "Hora", "Erd_TargetMoistureVoltage"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_TotalDryTimeCalculatorTimeMultiplierX100, ["Fecha", "Hora", "Erd_TotalDryTimeCalculatorTimeMultiplierX100"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_TotalDryTimeCalculatorTimeAdderSeconds, ["Fecha", "Hora", "Erd_TotalDryTimeCalculatorTimeAdderSeconds"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_SensorDryTemperatureMultiplierx100, ["Fecha", "Hora", "Erd_SensorDryTemperatureMultiplierx100"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_TimeToReachTargetVoltageSeconds, ["Fecha", "Hora", "Erd_TimeToReachTargetVoltageSeconds"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_SensingCycleTotalDryingTimeSeconds, ["Fecha", "Hora", "Erd_SensingCycleTotalDryingTimeSeconds"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_DrumGroundWatchdogResult, ["Fecha", "Hora", "Erd_DrumGroundWatchdogResult"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_ClothDampnessCheckResult, ["Fecha", "Hora", "Erd_ClothDampnessCheckResult"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_Fault_DrumGroundWatchdogDetection, ["Fecha", "Hora", "Erd_Fault_DrumGroundWatchdogDetection"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_SteamValveCycleCountRam, ["Fecha", "Hora", "Erd_SteamValveCycleCountRam"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_SteamValveOnTimeDurationInSecondsRam, ["Fecha", "Hora", "Erd_SteamValveOnTimeDurationInSecondsRam"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_CoolDownStepStatus, ["Fecha", "Hora", "Erd_CoolDownStepStatus"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_ExtendedTumbleStepStatus, ["Fecha", "Hora", "Erd_ExtendedTumbleStepStatus"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_SteamStepStatus, ["Fecha", "Hora", "Erd_SteamStepStatus"])
+FileCsv.Write_Data_CSV(file_Erd_Erd_EndOfCycleReason, ["Fecha", "Hora", "Erd_EndOfCycleReason"])
 
 ######################################################## ERD LIST #########################################################################
 ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30D", "F0AE", "F06D", "F0AC", "F303", "F322", "F11A", "F119", "F07F", "F080", "F073", "F311",
