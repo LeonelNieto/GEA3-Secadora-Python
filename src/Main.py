@@ -48,7 +48,7 @@ diaStr = datetime.now().strftime("%d-%m-%Y")
 path = "C:/Users/LNLMEXID/Desktop/Pruebas Archivos/"
 
 ######################################################### CREATE FILES ####################################################################
-file_Erd_CurrentSystemState = FileCsv.File_CSV("CurrentSystemState", path)
+file_Erd_CurrentSystemState = FileCsv.File_CSV("Erd_CurrentSystemState", path)
 file_Erd_Erd_CycleSelected = FileCsv.File_CSV("Erd_CycleSelected", path)
 file_Erd_Erd_EStarSensorDryRequested = FileCsv.File_CSV("Erd_EStarSensorDryRequested", path)
 file_Erd_Erd_RamCycleHistoryRecord = FileCsv.File_CSV("Erd_RamCycleHistoryRecord", path)
