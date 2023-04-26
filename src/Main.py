@@ -97,7 +97,7 @@ file_Erd_Erd_EndOfCycleReason = FileCsv.File_CSV("Erd_EndOfCycleReason", path)
 FileCsv.Write_Data_CSV(file_Erd_CurrentSystemState, ["Fecha", "Hora", "Erd_CurrentSystemState"])
 FileCsv.Write_Data_CSV(file_Erd_Erd_CycleSelected, ["Fecha", "Hora", "Erd_CycleSelected"])
 FileCsv.Write_Data_CSV(file_Erd_Erd_EStarSensorDryRequested, ["Fecha", "Hora", "Erd_EStarSensorDryRequested"])
-FileCsv.Write_Data_CSV(file_Erd_Erd_RamCycleHistoryRecord, ["Fecha", "Hora", "Erd_RamCycleHistoryRecord_drynessOptionAtStart"]) #TODO
+FileCsv.Write_Data_CSV(file_Erd_Erd_RamCycleHistoryRecord, ["Fecha", "Hora", "Erd_RamCycleHistoryRecord_drynessOptionAtStart", "Erd_RamCycleHistoryRecord_drynessOptionAtEnd", "Erd_RamCycleHistoryRecord_temperatureOptionAtStart", "Erd_RamCycleHistoryRecord_temperatureOptionAtEnd"])
 FileCsv.Write_Data_CSV(file_Erd_Erd_CurrentInletTemperature, ["Fecha", "Hora", "Erd_CurrentInletTemperature"])
 FileCsv.Write_Data_CSV(file_Erd_Erd_CurrentOutletTemperature, ["Fecha", "Hora", "Erd_CurrentOutletTemperature"])
 FileCsv.Write_Data_CSV(file_Erd_Erd_OverTemperatureMaxInletTemperature, ["Fecha", "Hora", "Erd_OverTemperatureMaxInletTemperature"])
