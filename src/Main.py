@@ -61,13 +61,13 @@ diaStr = datetime.now().strftime("%d-%m-%Y")
 file_name = "Prueba" + diaStr + "_" + TimeStr + ".csv"
 my_file = Path("/home/pi/Desktop/" + file_name)
 
-FileCsv.Write_Data_CSV(my_file, ["Date", diaStr])
+FileCsv.Write_Data_CSV(my_file, ["Fecha", diaStr])
 FileCsv.Write_Data_CSV(my_file, [""])
 FileCsv.Write_Data_CSV(my_file, HEADERS)
 
 
 ######################################## AGREGAR ERDS ############################################
-ERD_List = ["F01B", "200A", "F11F", "F01B", "F15E", "F301", "F302", "F705", "F30C", "F30D", "F0AE", "F06D", "F0AC", "F303", "F322", "F11A", "F119", "F07F", "F080", "F073", "F311",
+ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30D", "F0AE", "F06D", "F0AC", "F303", "F322", "F11A", "F119", "F07F", "F080", "F073", "F311",
             "F075", "003A", "003B", "FF01", "204D", "F0B2", "F0AF", "F0AB", "F0AD", "F0A9", "F0A8", "F1A5", "F1A6", "F816", "F0BC", "F0A7", "F0C7", "F0BA", "FD98",
             "F1A0", "F1A1", "F0ED", "F116", "F137", "F0AA"]
 
@@ -99,9 +99,9 @@ def main():
         print(DATA_TO_CSV)
         FileCsv.Write_Data_CSV(my_file, DATA_TO_CSV)   
 
-        Tiempo_Restante = 1 - (time.time() - Tiempo_Inicio) 
-        if Tiempo_Inicio > 0:
+        Tiempo_Restante = 1 - (time.time() - Tiempo_Inicio)
+        if Tiempo_Restante > 0:
             time.sleep(Tiempo_Restante)
-            
+
 if __name__ == "__main__":
     main()
