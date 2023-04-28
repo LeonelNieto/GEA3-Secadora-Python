@@ -59,7 +59,7 @@ HEADERS = ["Hora", "Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_EStarSens
 TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
 file_name = "Prueba" + diaStr + "_" + TimeStr + ".csv"
-my_file = Path("/home/pi/Desktop/" + file_name)
+my_file = Path("/home/orangepi/Desktop/" + file_name)
 
 FileCsv.Write_Data_CSV(my_file, ["Fecha", diaStr])
 FileCsv.Write_Data_CSV(my_file, HEADERS)
@@ -98,6 +98,7 @@ def main():
         FileCsv.Write_Data_CSV(my_file, DATA_TO_CSV)   
 
         Tiempo_Restante = 1 - (time.time() - Tiempo_Inicio)
+        
         if Tiempo_Restante > 0:
             time.sleep(Tiempo_Restante)
 
