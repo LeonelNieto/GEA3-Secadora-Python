@@ -3,130 +3,130 @@ def ERDS_TO_WRITE(ERDS):
 
     Erd_CurrentSystemState = int(ERDS[0], 16)
     Erd_CurrentSystemState = {                                           
-        0: "SystemState_StartUp",
-        1: "SystemState_Idle",
-        2: "SystemState_Standby",
-        3: "SystemState_Run",
-        4: "SystemState_Pause",
-        5: "SystemState_EndOfCycle",
-        6: "SystemState_DelayRun",
-        7: "SystemState_DelayPause",
-        8: "SystemState_Commissioning",
-        9: "SystemState_Max"                               
+        0: "StartUp",
+        1: "Idle",
+        2: "Standby",
+        3: "Run",
+        4: "Pause",
+        5: "EndOfCycle",
+        6: "DelayRun",
+        7: "DelayPause",
+        8: "Commissioning",
+        9: "Max"                               
     }.get(Erd_CurrentSystemState)
     ERDS_LIST.append(Erd_CurrentSystemState)
 
     Erd_CycleSelected = int(ERDS[1], 16)
     Erd_CycleSelected = {
-        0:  "CycleSelected_NotDefined",
-        1:  "CycleSelected_BasketClean",
-        2:  "CycleSelected_DrainSpin",
-        3:  "CycleSelected_QuickRinse",
-        4:  "CycleSelected_BulkyItems",
-        5:  "CycleSelected_Sanitize",
-        6:  "CycleSelected_TowelsSheets",
-        7:  "CycleSelected_WasherSteamRefresh",
-        8:  "CycleSelected_NormalOrMixedLoad",
-        9:  "CycleSelected_Whites",
-        10: "CycleSelected_DarkColors",
-        11: "CycleSelected_Jeans",
-        12: "CycleSelected_HandWash",
-        13: "CycleSelected_Delicates",
-        14: "CycleSelected_SpeedWash",
-        15: "CycleSelected_HeavyDuty",
-        16: "CycleSelected_Allergen",
-        17: "CycleSelected_PowerClean",
-        18: "CycleSelected_RinseSpin",
-        19: "CycleSelected_SingleItem",
-        20: "CycleSelected_Colors",
-        21: "CycleSelected_ColdWash",
-        22: "CycleSelected_WaterOnDemand",
-        23: "CycleSelected_TubClean",
-        24: "CycleSelected_CasualsWithSteam",
-        25: "CycleSelected_StainWashWithSteam",
-        26: "CycleSelected_DeepClean",
-        128: "CycleSelected_Cottons",
-        129: "CycleSelected_EasyCare",
-        130: "CycleSelected_ActiveWear",
-        131: "CycleSelected_TimedDry",
-        132: "CycleSelected_DeWrinkle",
-        133: "CycleSelected_Airfluff",
-        134: "CycleSelected_SteamRefresh",
-        135: "CycleSelected_SteamDewrinkle",
-        136: "CycleSelected_SpeedDry",
-        137: "CycleSelected_Mixed",
-        138: "CycleSelected_QuickDry",
-        139: "CycleSelected_Casuals",
-        140: "CycleSelected_WarmUp",
-        141: "CycleSelected_EnergySaver",
-        142: "CycleSelected_Antibacterial",
-        143: "CycleSelected_RackDry",
-        144: "CycleSelected_BabyCare",
-        145: "CycleSelected_AutoDry",
-        146: "CycleSelected_TimedDryWithNoHeat",
-        147: "CycleSelected_PermPress",
-        148: "CycleSelected_WasherLink"
+        0:  "NotDefined",
+        1:  "BasketClean",
+        2:  "DrainSpin",
+        3:  "QuickRinse",
+        4:  "BulkyItems",
+        5:  "Sanitize",
+        6:  "TowelsSheets",
+        7:  "WasherSteamRefresh",
+        8:  "NormalOrMixedLoad",
+        9:  "Whites",
+        10: "DarkColors",
+        11: "Jeans",
+        12: "HandWash",
+        13: "Delicates",
+        14: "SpeedWash",
+        15: "HeavyDuty",
+        16: "Allergen",
+        17: "PowerClean",
+        18: "RinseSpin",
+        19: "SingleItem",
+        20: "Colors",
+        21: "ColdWash",
+        22: "WaterOnDemand",
+        23: "TubClean",
+        24: "CasualsWithSteam",
+        25: "StainWashWithSteam",
+        26: "DeepClean",
+        128: "Cottons",
+        129: "EasyCare",
+        130: "ActiveWear",
+        131: "TimedDry",
+        132: "DeWrinkle",
+        133: "Airfluff",
+        134: "SteamRefresh",
+        135: "SteamDewrinkle",
+        136: "SpeedDry",
+        137: "Mixed",
+        138: "QuickDry",
+        139: "Casuals",
+        140: "WarmUp",
+        141: "EnergySaver",
+        142: "Antibacterial",
+        143: "RackDry",
+        144: "BabyCare",
+        145: "AutoDry",
+        146: "TimedDryWithNoHeat",
+        147: "PermPress",
+        148: "WasherLink"
     }.get(Erd_CycleSelected)
     ERDS_LIST.append(Erd_CycleSelected)
     
     Erd_EStarSensorDryRequested = int(ERDS[2], 16)
     Erd_EStarSensorDryRequested = {
-        0: "EStarOption_Disabled",
-        1: "EStarOption_Enabled",
-        2: "EStarOption_Max",
-        255: "EStarOption_DontCare"
+        0: "Disabled",
+        1: "Enabled",
+        2: "Max",
+        255: "DontCare"
     }.get(Erd_EStarSensorDryRequested)
     ERDS_LIST.append(Erd_EStarSensorDryRequested)
 
     Erd_RamCycleHistoryRecord_drynessOptionAtStart = int(ERDS[3], 16)
     Erd_RamCycleHistoryRecord_drynessOptionAtStart = {
-        0: "DrynessOption_Disabled",
-        1: "DrynessOption_Minimum",
-        2: "DrynessOption_LessDry",
-        3: "DrynessOption_Dry",
-        4: "DrynessOption_MoreDry",
-        5: "DrynessOption_ExtraDry",
-        6: "DrynessOption_Max",
-        255: "DrynessOption_DontCare"
+        0: "Disabled",
+        1: "Minimum",
+        2: "LessDry",
+        3: "Dry",
+        4: "MoreDry",
+        5: "ExtraDry",
+        6: "Max",
+        255: "DontCare"
     }.get(Erd_RamCycleHistoryRecord_drynessOptionAtStart)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_drynessOptionAtStart)
 
     Erd_RamCycleHistoryRecord_drynessOptionAtEnd = int(ERDS[4], 16)
     Erd_RamCycleHistoryRecord_drynessOptionAtEnd = {
-        0: "DrynessOption_Disabled",
-        1: "DrynessOption_Minimum",
-        2: "DrynessOption_LessDry",
-        3: "DrynessOption_Dry",
-        4: "DrynessOption_MoreDry",
-        5: "DrynessOption_ExtraDry",
-        6: "DrynessOption_Max",
-        255: "DrynessOption_DontCare"
+        0: "Disabled",
+        1: "Minimum",
+        2: "LessDry",
+        3: "Dry",
+        4: "MoreDry",
+        5: "ExtraDry",
+        6: "Max",
+        255: "DontCare"
     }.get(Erd_RamCycleHistoryRecord_drynessOptionAtEnd)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_drynessOptionAtEnd)
 
     Erd_RamCycleHistoryRecord_temperatureOptionAtStart = int(ERDS[5], 16)
     Erd_RamCycleHistoryRecord_temperatureOptionAtStart = {
-        0: "TemperatureOption_Disabled",
-        1: "TemperatureOption_NoHeat",
-        2: "TemperatureOption_ExtraLow",
-        3: "TemperatureOption_Low",
-        4: "TemperatureOption_Medium",
-        5: "TemperatureOption_High",
-        6: "TemperatureOption_Max",
-        255: "TemperatureOption_DontCare"   
+        0: "Disabled",
+        1: "NoHeat",
+        2: "ExtraLow",
+        3: "Low",
+        4: "Medium",
+        5: "High",
+        6: "Max",
+        255: "DontCare"   
     }.get(Erd_RamCycleHistoryRecord_temperatureOptionAtStart)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_temperatureOptionAtStart)
 
     Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = int(ERDS[6], 16)
     Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = {
-        0: "TemperatureOption_Disabled",
-        1: "TemperatureOption_NoHeat",
-        2: "TemperatureOption_ExtraLow",
-        3: "TemperatureOption_Low",
-        4: "TemperatureOption_Medium",
-        5: "TemperatureOption_High",
-        6: "TemperatureOption_Max",
-        255: "TemperatureOption_DontCare"       
+        0: "Disabled",
+        1: "NoHeat",
+        2: "ExtraLow",
+        3: "Low",
+        4: "Medium",
+        5: "High",
+        6: "Max",
+        255: "DontCare"       
     }.get(Erd_RamCycleHistoryRecord_temperatureOptionAtEnd)
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_temperatureOptionAtEnd)
 
@@ -224,10 +224,10 @@ def ERDS_TO_WRITE(ERDS):
 
     Erd_DrumMotorState = int(ERDS[22], 16)
     Erd_DrumMotorState = {
-        0: "DrumMotorState_Off",
-        1: "DrumMotorState_Normal",
-        2: "DrumMotorState_Reverse",
-        3: "DrumMotorState_Max"       
+        0: "Off",
+        1: "Normal",
+        2: "Reverse",
+        3: "Max"       
     }.get(Erd_DrumMotorState)
     ERDS_LIST.append(Erd_DrumMotorState)
 
@@ -257,46 +257,46 @@ def ERDS_TO_WRITE(ERDS):
 
     Erd_DrynessOption = int(ERDS[27], 16)
     Erd_DrynessOption = {
-        0: "DrynessOption_Disabled",
-        1: "DrynessOption_Minimum",
-        2: "DrynessOption_LessDry",
-        3: "DrynessOption_Dry",
-        4: "DrynessOption_MoreDry",
-        5: "DrynessOption_ExtraDry",
-        6: "DrynessOption_Max",
-        255: "DrynessOption_DontCare"
+        0: "Disabled",
+        1: "Minimum",
+        2: "LessDry",
+        3: "Dry",
+        4: "MoreDry",
+        5: "ExtraDry",
+        6: "Max",
+        255: "DontCare"
     }.get(Erd_DrynessOption)
     ERDS_LIST.append(Erd_DrynessOption)
 
     Erd_VentRestriction = int(ERDS[28], 16)
     Erd_VentRestriction = {
-        0: "VentRestriction_Unknown",
-        1: "VentRestriction_Small",
-        2: "VentRestriction_Large"
+        0: "Unknown",
+        1: "Small",
+        2: "Large"
     }.get(Erd_VentRestriction)
     ERDS_LIST.append(Erd_VentRestriction)    
 
     Erd_LoadSizeByAggregation = int(ERDS[29], 16)
     Erd_LoadSizeByAggregation = {
-        0: "LoadSize_Unknown",
-        1: "LoadSize_Small",
-        2: "LoadSize_Large"
+        0: "Unknown",
+        1: "Small",
+        2: "Large"
     }.get(Erd_LoadSizeByAggregation)
     ERDS_LIST.append(Erd_LoadSizeByAggregation) 
 
     Erd_LoadSizeByContact = int(ERDS[30], 16)
     Erd_LoadSizeByContact = {
-        0: "LoadSize_Unknown",
-        1: "LoadSize_Small",
-        2: "LoadSize_Large"
+        0: "Unknown",
+        1: "Small",
+        2: "Large"
     }.get(Erd_LoadSizeByContact)
     ERDS_LIST.append(Erd_LoadSizeByContact) 
 
     Erd_LoadSizeByTemperature = int(ERDS[31], 16)
     Erd_LoadSizeByTemperature = {
-        0: "LoadSize_Unknown",
-        1: "LoadSize_Small",
-        2: "LoadSize_Large"
+        0: "Unknown",
+        1: "Small",
+        2: "Large"
     }.get(Erd_LoadSizeByTemperature)
     ERDS_LIST.append(Erd_LoadSizeByTemperature) 
 
@@ -339,23 +339,23 @@ def ERDS_TO_WRITE(ERDS):
 
     Erd_DrumGroundWatchdogResult = int(ERDS[43], 16)
     Erd_DrumGroundWatchdogResult = {
-        0: "DrumGroundWatchdogResult_Unknown",
-        1: "DrumGroundWatchdogResult_NotExpired",
-        2: "DrumGroundWatchdogResult_Expired"
+        0: "Unknown",
+        1: "NotExpired",
+        2: "Expired"
     }.get(Erd_DrumGroundWatchdogResult)
     ERDS_LIST.append(Erd_DrumGroundWatchdogResult)
 
     Erd_ClothDampnessCheckResult = int(ERDS[44], 16)
     Erd_ClothDampnessCheckResult = {
-        0: "ClothDampnessCheckResult_Undefined",
-        1: "ClothDampnessCheckResult_Disabled",
-        2: "ClothDampnessCheckResult_Idle",
-        3: "ClothDampnessCheckResult_WaitForFilteredVoltageReset",
-        4: "ClothDampnessCheckResult_Sensing",
-        5: "ClothDampnessCheckResult_Paused",
-        6: "ClothDampnessCheckResult_PausedWhileWaitingForFilteredVoltageReset",
-        7: "ClothDampnessCheckResult_TargetVoltageReached",
-        8: "ClothDampnessCheckResult_TargetVoltageReachedByExpiredWatchdog"
+        0: "Undefined",
+        1: "Disabled",
+        2: "Idle",
+        3: "WaitForFilteredVoltageReset",
+        4: "Sensing",
+        5: "Paused",
+        6: "PausedWhileWaitingForFilteredVoltageReset",
+        7: "TargetVoltageReached",
+        8: "TargetVoltageReachedByExpiredWatchdog"
     }.get(Erd_ClothDampnessCheckResult)
     ERDS_LIST.append(Erd_ClothDampnessCheckResult)
 
@@ -374,67 +374,66 @@ def ERDS_TO_WRITE(ERDS):
 
     Erd_CoolDownStepStatus = int(ERDS[48], 16)
     Erd_CoolDownStepStatus = {
-        0: "CycleStepState_Unknown",
-        1: "CycleStepState_Initialized",
-        2: "CycleStepState_Selected",
-        3: "CycleStepState_Deselected",
-        4: "CycleStepState_Started",
-        5: "CycleStepState_Stopped",
-        6: "CycleStepState_Paused",
-        7: "CycleStepState_Resumed",
-        8: "CycleStepState_Completed",
-        9: "CycleStepState_Max"
+        0: "Unknown",
+        1: "Initialized",
+        2: "Selected",
+        3: "Deselected",
+        4: "Started",
+        5: "Stopped",
+        6: "Paused",
+        7: "Resumed",
+        8: "Completed",
+        9: "Max"
     }.get(Erd_CoolDownStepStatus)
     ERDS_LIST.append(Erd_CoolDownStepStatus)    
 
     Erd_ExtendedTumbleStepStatus = int(ERDS[49], 16)
     Erd_ExtendedTumbleStepStatus = {
-        0: "CycleStepState_Unknown",
-        1: "CycleStepState_Initialized",
-        2: "CycleStepState_Selected",
-        3: "CycleStepState_Deselected",
-        4: "CycleStepState_Started",
-        5: "CycleStepState_Stopped",
-        6: "CycleStepState_Paused",
-        7: "CycleStepState_Resumed",
-        8: "CycleStepState_Completed",
-        9: "CycleStepState_Max"
+        0: "Unknown",
+        1: "Initialized",
+        2: "Selected",
+        3: "Deselected",
+        4: "Started",
+        5: "Stopped",
+        6: "Paused",
+        7: "Resumed",
+        8: "Completed",
+        9: "Max"
     }.get(Erd_ExtendedTumbleStepStatus)
     ERDS_LIST.append(Erd_ExtendedTumbleStepStatus)    
 
     Erd_SteamStepStatus = int(ERDS[50], 16)
     Erd_SteamStepStatus = {
-        0: "CycleStepState_Unknown",
-        1: "CycleStepState_Initialized",
-        2: "CycleStepState_Selected",
-        3: "CycleStepState_Deselected",
-        4: "CycleStepState_Started",
-        5: "CycleStepState_Stopped",
-        6: "CycleStepState_Paused",
-        7: "CycleStepState_Resumed",
-        8: "CycleStepState_Completed",
-        9: "CycleStepState_Max"
+        0: "Unknown",
+        1: "Initialized",
+        2: "Selected",
+        3: "Deselected",
+        4: "Started",
+        5: "Stopped",
+        6: "Paused",
+        7: "Resumed",
+        8: "Completed",
+        9: "Max"
     }.get(Erd_SteamStepStatus)
     ERDS_LIST.append(Erd_SteamStepStatus) 
 
     Erd_EndOfCycleReason = int(ERDS[51], 16)
     Erd_EndOfCycleReason = {
-        0: "EndOfCycleReason_NA",
-        1: "EndOfCycleReason_EmptyDrum",
-        2: "EndOfCycleReason_DryLoad",
-        3: "EndOfCycleReason_CoolDownPaused",
-        4: "EndOfCycleReason_ExtendedTumblePaused",
-        5: "EndOfCycleReason_KnobChange",
-        6: "EndOfCycleReason_PowerButtonPressed",
-        7: "EndOfCycleReason_CycleComplete",
-        8: "EndOfCycleReason_EventSequenceCommunicationIssue",
-        9: "EndOfCycleReason_CriticalFault",
-        10: "EndOfCycleReason_RemoteStop",
-        11: "EndOfCycleReason_ExtremeHeatDetected",
-        255: "EndOfCycleReason_DontCare"
+        0: "NA",
+        1: "EmptyDrum",
+        2: "DryLoad",
+        3: "CoolDownPaused",
+        4: "ExtendedTumblePaused",
+        5: "KnobChange",
+        6: "PowerButtonPressed",
+        7: "CycleComplete",
+        8: "EventSequenceCommunicationIssue",
+        9: "CriticalFault",
+        10: "RemoteStop",
+        11: "ExtremeHeatDetected",
+        255: "DontCare"
     }.get(Erd_EndOfCycleReason)
     ERDS_LIST.append(Erd_EndOfCycleReason) 
 
     return ERDS_LIST
 
-# print(ERDS_TO_WRITE([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "0102010201020102010002030400010200010202010202010201020010201200010100010100001010102000010010101010", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "0102034055010910", "010203405501091", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0 ,0, 0, 0]))
