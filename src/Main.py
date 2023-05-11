@@ -76,8 +76,7 @@ def main():
         State = ReadButton("C0", "F01B")
         
         if State != System_State:
-            print(State)
-            if State in [0]:
+            if State not in [3, 4]:
                 Cont = 0
             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
         
