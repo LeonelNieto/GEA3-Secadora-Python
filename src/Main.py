@@ -7,8 +7,6 @@ import time
 import FileCsv
 import definitions
 
-System_State = ""
-
 def SetBoard():                                                      
     global ser
     ser = serial.Serial()
@@ -74,6 +72,7 @@ ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30
             "F1A0", "F1A1", "F0ED", "F116", "F137", "F0AA"]
 
 def main():
+    System_State = ""
     while True:
         Tiempo_Inicio = time.time()
         SetBoard()
@@ -109,6 +108,7 @@ def main():
             print(State)
             FileCsv.Write_Data_CSV(file_System_State, definitions.System_State(State))
         
+        System_State = State
         Tiempo_Restante = 1 - (time.time() - Tiempo_Inicio)
         if Tiempo_Restante > 0:
             time.sleep(Tiempo_Restante)
