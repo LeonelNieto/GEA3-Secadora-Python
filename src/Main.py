@@ -58,13 +58,9 @@ HEADERS = ["Fecha", "Hora", "Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_
 
 TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
-file_name = "Test" + diaStr + "_" + TimeStr + ".csv"
-file_name_System_State = "System_State" + "_" + diaStr + "_" + TimeStr + ".csv"
-my_file = Path("/home/orangepi/Desktop/" + file_name)
+file_name_System_State = "System_State" + ".csv"
 file_System_State = Path("/home/orangepi/Desktop/" + file_name_System_State)
 
-FileCsv.Write_Data_CSV(my_file, HEADERS)
-FileCsv.Write_Data_CSV(file_System_State, ["System_State"])
 
 ######################################## AGREGAR ERDS ############################################
 ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30D", "F0AE", "F06D", "F0AC", "F303", "F322", "F11A", "F119", "F07F", "F080", "F073", "F311",
@@ -73,19 +69,32 @@ ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30
 
 def main():
     System_State = ""
+    Cont = 0
     while True:
         Tiempo_Inicio = time.time()
         SetBoard()
         State = ReadButton("C0", "F01B")
         
+        if State != System_State:
+            print(State)
+            if State in [0]:
+                Cont = 0
+            FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
+        
+        System_State = State
         if State == "03":
+            TimeS = datetime.now().strftime("%H:%M:%S")
+            DiaS = datetime.now().strftime("%d-%m-%Y") 
+            Cont += 1
+            if Cont == 1:
+                file_name = "Test" + DiaS + "_" + TimeS + ".csv"
+                my_file = Path("/home/orangepi/Desktop/" + file_name)
+                FileCsv.Write_Data_CSV(my_file, HEADERS)
             ERDS = []
             for ERD in ERD_List:
                 Dato = ReadButton("C0", ERD)
                 ERDS.append(Dato)
 
-            TimeS = datetime.now().strftime("%H:%M:%S")
-            DiaS = datetime.now().strftime("%d-%m-%Y") 
             Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord, Erd_CurrentInletTemperature, Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_HeatControlParametric, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_SensorDryTemperatureMultiplierx100, Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds,Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason = ERDS                                                             
             
             Erd_RamCycleHistoryRecord_drynessOptionAtStart = Erd_RamCycleHistoryRecord[100:102]
@@ -102,13 +111,8 @@ def main():
             
             DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
             print(DATA_TO_CSV)
-            FileCsv.Write_Data_CSV(my_file, DATA_TO_CSV)   
-
-        if State != System_State:
-            print(State)
-            FileCsv.Write_Data_CSV(file_System_State, definitions.System_State(State))
-        
-        System_State = State
+            FileCsv.Write_Data_CSV(my_file, DATA_TO_CSV) 
+              
         Tiempo_Restante = 1 - (time.time() - Tiempo_Inicio)
         if Tiempo_Restante > 0:
             time.sleep(Tiempo_Restante)
