@@ -437,3 +437,17 @@ def ERDS_TO_WRITE(ERDS):
 
     return ERDS_LIST
 
+def System_State(ERD):
+    Erd_CurrentSystemState = int(ERD, 16)
+    return {                                           
+        0: "STARTUp",
+        1: "IDLE",
+        2: "STANDBY",
+        3: "RUN",
+        4: "PAUSE",
+        5: "ENDOFCYCLE",
+        6: "DELAYRUN",
+        7: "DELAYPAUSE",
+        8: "COMMISSIONING",
+        9: "MAX"                               
+    }.get(Erd_CurrentSystemState)
