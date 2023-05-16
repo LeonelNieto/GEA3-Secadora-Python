@@ -23,3 +23,6 @@ El puerto está programado en el USB0, por lo tanto el puerto debe ser siempre t
   - Realiza nuevamente el paso 1 y verifica que ahora si muestre esto **FTDI USB SERIAL Device converter now attached to ttyUSB0**
  
 ## Intrucciones para ejecutar el programa
+**Es necesarios ejecutar el programa en la terminal, ya que si se ejecuta el programa como cualquier otro comenzará a correr, pero no habrá ninguna ventana y se tendrá que terminar la ejecución del programa desde la terminal con el comando kill. Para ejecutar el programa desde la terminal, realiza los siguientes pasos:**
+- Abre la terminal de comandos y direccionate a la ubicación del archivo con el comando **cd (direccion del programa)**
+- Ejecuta el siguiente comando en la terminal: **./Main**
