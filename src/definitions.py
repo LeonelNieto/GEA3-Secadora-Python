@@ -435,10 +435,10 @@ def ERDS_TO_WRITE(ERDS):
     }.get(Erd_EndOfCycleReason)
     ERDS_LIST.append(Erd_EndOfCycleReason)
     
-    Erd_ModelNumber = ERDS[52]
+    Erd_ModelNumber = str(bytes.fromhex(ERDS[52]).decode('utf-8').replace('\x00', ''))
     ERDS_LIST.append(Erd_ModelNumber)
     
-    Erd_SerialNumber = ERDS[53]
+    Erd_SerialNumber = str(bytes.fromhex(ERDS[53]).decode('utf-8').replace('\x00', ''))
     ERDS_LIST.append(Erd_SerialNumber)
     
     Erd_AppliancePersonality = int(ERDS[54], 16)
@@ -493,18 +493,24 @@ def ERDS_TO_WRITE(ERDS):
     Erd_ExtendedTumbleAllowable = str(bin(int(ERDS[59], 16)))
     Erd_ExtendedTumbleAllowable_ExtendedTumbleAllowablesBit_Disabled = Erd_ExtendedTumbleAllowable[2:3]
     Erd_ExtendedTumbleAllowable_ExtendedTumbleAllowablesBit_Enabled = Erd_ExtendedTumbleAllowable[3:4]
+    if Erd_ExtendedTumbleAllowable_ExtendedTumbleAllowablesBit_Enabled == "":
+        Erd_ExtendedTumbleAllowable_ExtendedTumbleAllowablesBit_Enabled = "0"
     ERDS_LIST.append(Erd_ExtendedTumbleAllowable_ExtendedTumbleAllowablesBit_Disabled)
     ERDS_LIST.append(Erd_ExtendedTumbleAllowable_ExtendedTumbleAllowablesBit_Enabled)
     
     Erd_DetangleAllowable = str(bin(int(ERDS[60], 16)))
     Erd_DetangleAllowable_DetangleAllowablesBit_Disabled = Erd_DetangleAllowable[2:3]
     Erd_DetangleAllowable_DetangleAllowablesBit_Enabled = Erd_DetangleAllowable[3:4]
+    if Erd_DetangleAllowable_DetangleAllowablesBit_Enabled == "":
+        Erd_DetangleAllowable_DetangleAllowablesBit_Enabled = "0"
     ERDS_LIST.append(Erd_DetangleAllowable_DetangleAllowablesBit_Disabled)
     ERDS_LIST.append(Erd_DetangleAllowable_DetangleAllowablesBit_Enabled)
     
     Erd_MyCycleAllowable = str(bin(int(ERDS[61], 16)))
     Erd_MyCycleAllowable_MyCycleAllowablesBit_Disabled = Erd_MyCycleAllowable[2:3]
     Erd_MyCycleAllowable_MyCycleAllowablesBit_Enabled = Erd_MyCycleAllowable[3:4]
+    if Erd_MyCycleAllowable_MyCycleAllowablesBit_Enabled == "":
+        Erd_MyCycleAllowable_MyCycleAllowablesBit_Enabled = 0
     ERDS_LIST.append(Erd_MyCycleAllowable_MyCycleAllowablesBit_Disabled)
     ERDS_LIST.append(Erd_MyCycleAllowable_MyCycleAllowablesBit_Enabled)
     
