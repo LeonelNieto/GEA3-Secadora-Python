@@ -433,8 +433,81 @@ def ERDS_TO_WRITE(ERDS):
         11: "ExtremeHeatDetected",
         255: "DontCare"
     }.get(Erd_EndOfCycleReason)
-    ERDS_LIST.append(Erd_EndOfCycleReason) 
+    ERDS_LIST.append(Erd_EndOfCycleReason)
+    
+    Erd_ModelNumber = ERDS[52]
+    ERDS_LIST.append(Erd_ModelNumber)
+    
+    Erd_SerialNumber = ERDS[53]
+    ERDS_LIST.append(Erd_SerialNumber)
+    
+    Erd_AppliancePersonality = int(ERDS[54], 16)
+    ERDS_LIST.append(str(Erd_AppliancePersonality))
 
+    Erd_MachineStatus = int(ERDS[55], 16)
+    Erd_MachineStatus = {
+        0: "MachineStatus_Idle",
+        1: "MachineStatus_Standby",
+        2: "MachineStatus_Run",
+        3: "MachineStatus_Pause",
+        4: "MachineStatus_EndOfCycle",
+        5: "MachineStatus_DSMDelayRun",
+        6: "MachineStatus_DelayRun",
+        7: "MachineStatus_DelayPause",
+        8: "MachineStatus_DrainTimeOut",
+        9: "MachineStatus_Commissioning",
+        128: "MachineStatus_CleanSpeak"
+    }.get(Erd_MachineStatus)
+    ERDS_LIST.append(Erd_MachineStatus)
+    
+    Erd_MachineSubCycle = int(ERDS[56], 16)
+    Erd_MachineSubCycle = {
+        0: "MachineSubCycle_NotApplicable",
+        128: "MachineSubCycle_Drying",
+        129: "MachineSubCycle_MistSteam",
+        130: "MachineSubCycle_CoolDown",
+        131: "MachineSubCycle_ExtendedTumble",
+        132: "MachineSubCycle_Damp",
+        133: "MachineSubCycle_AirFluff"
+    }.get(Erd_MachineSubCycle)
+    ERDS_LIST.append(Erd_MachineSubCycle)
+    
+    Erd_EcoDryOptionRequest = int(ERDS[57], 16)
+    Erd_EcoDryOptionRequest = {
+        0: "EcoDryOption_Disabled",
+        1: "EcoDryOption_Enabled",
+        2: "EcoDryOption_Max",
+        255: "EcoDryOption_DontCare"
+    }.get(Erd_EcoDryOptionRequest)
+    ERDS_LIST.append(Erd_EcoDryOptionRequest)
+    
+    Erd_ReduceStaticOption = int(ERDS[58], 16)
+    Erd_ReduceStaticOption = {
+        0: "ReduceStaticOption_Disabled",
+        1: "ReduceStaticOption_Enabled",
+        2: "ReduceStaticOption_Max",
+        255: "ReduceStaticOption_DontCare"
+    }.get(Erd_ReduceStaticOption)
+    ERDS_LIST.append(Erd_ReduceStaticOption)
+    
+    Erd_ExtendedTumbleAllowable = str(bin(int(ERDS[59], 16)))
+    Erd_ExtendedTumbleAllowable_ExtendedTumbleAllowablesBit_Disabled = Erd_ExtendedTumbleAllowable[2:3]
+    Erd_ExtendedTumbleAllowable_ExtendedTumbleAllowablesBit_Enabled = Erd_ExtendedTumbleAllowable[3:4]
+    ERDS_LIST.append(Erd_ExtendedTumbleAllowable_ExtendedTumbleAllowablesBit_Disabled)
+    ERDS_LIST.append(Erd_ExtendedTumbleAllowable_ExtendedTumbleAllowablesBit_Enabled)
+    
+    Erd_DetangleAllowable = str(bin(int(ERDS[60], 16)))
+    Erd_DetangleAllowable_DetangleAllowablesBit_Disabled = Erd_DetangleAllowable[2:3]
+    Erd_DetangleAllowable_DetangleAllowablesBit_Enabled = Erd_DetangleAllowable[3:4]
+    ERDS_LIST.append(Erd_DetangleAllowable_DetangleAllowablesBit_Disabled)
+    ERDS_LIST.append(Erd_DetangleAllowable_DetangleAllowablesBit_Enabled)
+    
+    Erd_MyCycleAllowable = str(bin(int(ERDS[61], 16)))
+    Erd_MyCycleAllowable_MyCycleAllowablesBit_Disabled = Erd_MyCycleAllowable[2:3]
+    Erd_MyCycleAllowable_MyCycleAllowablesBit_Enabled = Erd_MyCycleAllowable[3:4]
+    ERDS_LIST.append(Erd_MyCycleAllowable_MyCycleAllowablesBit_Disabled)
+    ERDS_LIST.append(Erd_MyCycleAllowable_MyCycleAllowablesBit_Enabled)
+    
     return ERDS_LIST
 
 def System_State(ERD):
