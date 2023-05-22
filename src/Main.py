@@ -60,7 +60,7 @@ HEADERS = ["Fecha", "Hora", "Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_
 
 TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
-file_name_System_State = "System_State" + ".csv"
+file_name_System_State = "System_State" + ".txt"
 file_System_State = Path("/home/orangepi/Desktop/" + file_name_System_State)
 
 
@@ -88,7 +88,7 @@ def main():
             DiaS = datetime.now().strftime("%d-%m-%Y") 
             Cont += 1
             if Cont == 1:
-                file_name = "Test" + DiaS + "_" + TimeS + ".csv"
+                file_name = "Test" + DiaS + "_" + TimeS + ".txt"
                 my_file = Path("/home/orangepi/Desktop/" + file_name)
                 FileCsv.Write_Data_CSV(my_file, HEADERS)
             ERDS = []
