@@ -62,7 +62,8 @@ TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
 file_name_System_State = "System_State" + ".txt"
 file_System_State = Path("/home/orangepi/Desktop/" + file_name_System_State)
-
+file_name_text = "File Name" + ".txt"
+file_path_name = Path("/home/orangepi/Desktop/" + file_name_text)
 
 ######################################## AGREGAR ERDS ############################################
 ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30D", "F0AE", "F06D", "F0AC", "F303", "F322", "F11A", "F119", "F07F", "F080", "F073", "F311",
@@ -90,6 +91,7 @@ def main():
             if Cont == 1:
                 file_name = "Test" + DiaS + "_" + TimeS + ".txt"
                 my_file = Path("/home/orangepi/Desktop/" + file_name)
+                FileCsv.Write_Data_System_State(file_path_name, file_name)
                 FileCsv.Write_Data_CSV(my_file, HEADERS)
             ERDS = []
             for ERD in ERD_List:
