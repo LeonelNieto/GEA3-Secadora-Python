@@ -58,9 +58,6 @@ HEADERS = ["Fecha", "Hora", "Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_
                     "Erd_SerialNumber", "Erd_AppliancePersonality", "Erd_MachineStatus", "Erd_MachineSubCycle", "Erd_EcoDryOptionRequest", "Erd_ReduceStaticOption",
                     "Erd_ExtendedTumbleAllowable.ExtendedTumbleAllowablesBit_Disabled", "Erd_ExtendedTumbleAllowable.ExtendedTumbleAllowablesBit_Enabled",  "Erd_DetangleAllowable.DetangleAllowablesBit_Disabled", "Erd_DetangleAllowable.DetangleAllowablesBit_Enabled", "Erd_MyCycleAllowable.MyCycleAllowablesBit_Disabled", "Erd_MyCycleAllowable.MyCycleAllowablesBit_Enabled"]  
 
-TimeStr = datetime.now().strftime("%H-%M-%S")
-diaStr = datetime.now().strftime("%d-%m-%Y")
-
 file_name_System_State = "System_State" + ".csv"
 file_System_State = Path("/home/orangepi/Desktop/" + file_name_System_State)
 
