@@ -62,8 +62,12 @@ TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
 file_name_System_State = "System_State" + ".txt"
 file_System_State = Path("/home/orangepi/Desktop/" + file_name_System_State)
-file_name_text = "File Name" + ".txt"
-file_path_name = Path("/home/orangepi/Desktop/" + file_name_text)
+File_Name_Erds = "Unidad 1" + ".csv"
+File_Data_Erds = Path("/home/orangepi/Desktop/" + File_Name_Erds)
+FileCsv.Write_Data_CSV(File_Data_Erds, HEADERS)
+
+# file_name_text = "File Name" + ".txt"
+# file_path_name = Path("/home/orangepi/Desktop/" + file_name_text)
 
 ######################################## AGREGAR ERDS ############################################
 ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30D", "F0AE", "F06D", "F0AC", "F303", "F322", "F11A", "F119", "F07F", "F080", "F073", "F311",
@@ -79,8 +83,6 @@ def main():
         State = ReadButton("C0", "F01B")
         
         if State != System_State:
-            if State not in ["03", "04"]:
-                Cont = 0
             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
         
         System_State = State
@@ -88,11 +90,7 @@ def main():
             TimeS = datetime.now().strftime("%H-%M-%S")
             DiaS = datetime.now().strftime("%d-%m-%Y") 
             Cont += 1
-            if Cont == 1:
-                file_name = "Test" + DiaS + "_" + TimeS + ".txt"
-                my_file = Path("/home/orangepi/Desktop/" + file_name)
-                FileCsv.Write_Data_System_State(file_path_name, file_name)
-                FileCsv.Write_Data_CSV(my_file, HEADERS)
+
             ERDS = []
             for ERD in ERD_List:
                 Dato = ReadButton("C0", ERD)
@@ -114,9 +112,9 @@ def main():
             
             DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
             print(DATA_TO_CSV)
-            FileCsv.Write_Data_CSV(my_file, DATA_TO_CSV) 
+            FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
               
-        Tiempo_Restante = 1 - (time.time() - Tiempo_Inicio)
+        Tiempo_Restante = 60 - (time.time() - Tiempo_Inicio)
         if Tiempo_Restante > 0:
             time.sleep(Tiempo_Restante)
 
