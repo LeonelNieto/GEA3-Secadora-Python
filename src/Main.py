@@ -110,7 +110,7 @@ def main():
             DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
             print(DATA_TO_CSV)
             FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
-              
+
             Tiempo_Restante = 60 - (time.time() - Tiempo_Inicio)
             if Tiempo_Restante > 0:
                 time.sleep(Tiempo_Restante)
