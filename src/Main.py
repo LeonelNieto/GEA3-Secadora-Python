@@ -60,14 +60,14 @@ HEADERS = ["Fecha", "Hora", "Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_
 
 TimeStr = datetime.now().strftime("%H-%M-%S")
 diaStr = datetime.now().strftime("%d-%m-%Y")
-file_name_System_State = "System_State" + ".txt"
+
+file_name_System_State = "System_State" + ".csv"
 file_System_State = Path("/home/orangepi/Desktop/" + file_name_System_State)
+
 File_Name_Erds = "Unidad 1" + ".csv"
 File_Data_Erds = Path("/home/orangepi/Desktop/" + File_Name_Erds)
-FileCsv.Write_Data_CSV(File_Data_Erds, HEADERS)
-
-# file_name_text = "File Name" + ".txt"
-# file_path_name = Path("/home/orangepi/Desktop/" + file_name_text)
+if not File_Data_Erds.is_file():
+    FileCsv.Write_Data_CSV(File_Data_Erds, HEADERS)
 
 ######################################## AGREGAR ERDS ############################################
 ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30D", "F0AE", "F06D", "F0AC", "F303", "F322", "F11A", "F119", "F07F", "F080", "F073", "F311",
@@ -76,7 +76,6 @@ ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30
 
 def main():
     System_State = ""
-    Cont = 0
     while True:
         Tiempo_Inicio = time.time()
         SetBoard()
@@ -87,10 +86,6 @@ def main():
         
         System_State = State
         if State == "03":
-            TimeS = datetime.now().strftime("%H-%M-%S")
-            DiaS = datetime.now().strftime("%d-%m-%Y") 
-            Cont += 1
-
             ERDS = []
             for ERD in ERD_List:
                 Dato = ReadButton("C0", ERD)
@@ -110,13 +105,15 @@ def main():
 
             DATA_TO_WRITE = [Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord_drynessOptionAtStart, Erd_RamCycleHistoryRecord_drynessOptionAtEnd, Erd_RamCycleHistoryRecord_temperatureOptionAtStart, Erd_RamCycleHistoryRecord_temperatureOptionAtEnd, Erd_CurrentInletTemperature,Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_HeatControlParametric, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierEcoDry, Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierExtraLow, Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierLow, Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierMedium, Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierHigh,Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds, Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, Erd_ModelNumber, Erd_SerialNumber, Erd_AppliancePersonality, Erd_MachineStatus, Erd_MachineSubCycle, Erd_EcoDryOptionRequest, Erd_ReduceStaticOption, Erd_ExtendedTumbleAllowable, Erd_DetangleAllowable, Erd_MyCycleAllowable]
             
+            TimeS = datetime.now().strftime("%H-%M-%S")
+            DiaS = datetime.now().strftime("%d-%m-%Y") 
             DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
             print(DATA_TO_CSV)
             FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
               
-        Tiempo_Restante = 60 - (time.time() - Tiempo_Inicio)
-        if Tiempo_Restante > 0:
-            time.sleep(Tiempo_Restante)
+            Tiempo_Restante = 60 - (time.time() - Tiempo_Inicio)
+            if Tiempo_Restante > 0:
+                time.sleep(Tiempo_Restante)
 
 if __name__ == "__main__":
     main()
