@@ -72,6 +72,7 @@ ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30
             "F1A0", "F1A1", "F0ED", "F116", "F137", "F0AA", "0001", "0002", "0035", "2000", "2001", "2044", "205E", "F644", "F646", "F649"]
 
 def main():
+    Count_EndOfCycle = 0
     System_State = ""
     while True:
         Tiempo_Inicio = time.time()
@@ -80,15 +81,23 @@ def main():
         
         if State != System_State:
             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
+
+        if State == "05":
+            Count_EndOfCycle += 1
+        else:
+            Count_EndOfCycle = 0
         
         System_State = State
-        if State == "03":
+        if (State == "03") or (State == 4 and Count_EndOfCycle < 2):
             ERDS = []
             for ERD in ERD_List:
                 Dato = ReadButton("C0", ERD)
                 ERDS.append(Dato)
 
             Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord, Erd_CurrentInletTemperature, Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_HeatControlParametric, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_SensorDryTemperatureMultiplierx100, Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds,Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, Erd_ModelNumber, Erd_SerialNumber, Erd_AppliancePersonality, Erd_MachineStatus, Erd_MachineSubCycle, Erd_EcoDryOptionRequest, Erd_ReduceStaticOption, Erd_ExtendedTumbleAllowable, Erd_DetangleAllowable, Erd_MyCycleAllowable = ERDS                                                             
+            
+            if (Erd_CurrentSystemState == "05") and (Count_EndOfCycle == 0):
+                Count_EndOfCycle += 1
             
             Erd_RamCycleHistoryRecord_drynessOptionAtStart = Erd_RamCycleHistoryRecord[100:102]
             Erd_RamCycleHistoryRecord_drynessOptionAtEnd = Erd_RamCycleHistoryRecord[102:104]
