@@ -102,7 +102,7 @@ def main():
         if State not in ["03", "04", "05"]:
             FirstCall = True
         
-        if (State == "03") or (State == "04") or ((Erd_CurrentSystemState == "05") and Count_EndOfCycle == 0):
+        if (State == "03") or (State == "04") or (((Erd_CurrentSystemState == "05") or (State == "05")) and Count_EndOfCycle == 0):
             tiempo_actual = time.time()
             ERDS = []
             for ERD in ERD_List:
