@@ -98,13 +98,9 @@ def main():
         if State != System_State:
             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
 
-        if State == "05":
-            Count_EndOfCycle += 1
-        else:
-            Count_EndOfCycle = 0
-        
         System_State = State
-        if (State == "03") or (State == "04" and Count_EndOfCycle < 2):
+        
+        if (State == "03") or (State == "04") or (System_State == "05" and Count_EndOfCycle == 1):
             ERDS = []
             for ERD in ERD_List:
                 Dato = ReadERD("C0", ERD)
