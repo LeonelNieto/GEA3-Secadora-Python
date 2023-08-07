@@ -1,13 +1,17 @@
 import ReadorWrite
 import verifylength as vrlen
 import serial
-from pathlib import Path
 from datetime import datetime
 import time
 import FileCsv
 import definitions
+import os
+import sys
 
-def SetBoard():                                                      
+def SetBoard():
+    """
+    Configure serial port and autoconnect it
+    """                                                      
     global ser
     ser = serial.Serial()
     ser.baudrate = 230400                                                               
@@ -17,12 +21,21 @@ def SetBoard():
     ser.port = "/dev/ttyUSB0"                                                
     ser.open()    
     
-def ReadButton(dst, ERD):                                    
-    longitud_ERD = vrlen.longitudERD(ERD)             
-    Is_Correct = True
-    while Is_Correct:
+def ReadERD(dst:str, ERD:str) -> str:
+    """
+    Function to read ERDs.
+    
+    Args:
+        dst: Mc destination
+        ERD: Erd to read
+    
+    Return:
+        Dato: Data of ERD read
+    """                                    
+    Erd = vrlen.longitudERD(ERD)             
+    while True:
         complete_frame = ""  
-        lectura = ReadorWrite.ReadErd(longitud_ERD, dst)        
+        lectura = ReadorWrite.ReadErd(Erd, dst)        
         ser.write(lectura)                                       
         while True:
             reading = ser.read(1)                 
@@ -33,7 +46,6 @@ def ReadButton(dst, ERD):
             if reading == b'':   
                 complete_frame = "Verifica conexiones"   
                 break
-        Dato = complete_frame 
         complete_frame = complete_frame.upper()             
         Byte_ERD = complete_frame[14:18]
         Byte_OK = complete_frame[12:14]
@@ -41,7 +53,7 @@ def ReadButton(dst, ERD):
             Longitud_Dato_hex = complete_frame[18:20]
             Longitud_Dato_int = int(Longitud_Dato_hex, 16) * 2
             Dato = complete_frame[20:(20 + Longitud_Dato_int)]
-            Is_Correct = False
+            break
     return Dato     
 
 ########################################   HEADERS   ############################################
@@ -59,11 +71,13 @@ HEADERS = ["Fecha", "Hora", "Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_
                     "Erd_ExtendedTumbleAllowable.ExtendedTumbleAllowablesBit_Disabled", "Erd_ExtendedTumbleAllowable.ExtendedTumbleAllowablesBit_Enabled",  "Erd_DetangleAllowable.DetangleAllowablesBit_Disabled", "Erd_DetangleAllowable.DetangleAllowablesBit_Enabled", "Erd_MyCycleAllowable.MyCycleAllowablesBit_Disabled", "Erd_MyCycleAllowable.MyCycleAllowablesBit_Enabled"]  
 
 file_name_System_State = "System_State" + ".csv"
-file_System_State = Path("/home/orangepi/Desktop/" + file_name_System_State)
+Executable_Path = sys.argv[0]
+Actual_Path = os.path.dirname(os.path.abspath(Executable_Path))
+file_System_State = os.path.join(Actual_Path, file_name_System_State)
 
-File_Name_Erds = "Unidad 1" + ".csv"
-File_Data_Erds = Path("/home/orangepi/Desktop/" + File_Name_Erds)
-if not File_Data_Erds.is_file():
+File_Name_Erds = "Unidad_1" + ".csv"
+File_Data_Erds = os.path.join(Actual_Path, File_Name_Erds)
+if not os.path.exists(File_Data_Erds):
     FileCsv.Write_Data_CSV(File_Data_Erds, HEADERS)
 
 ######################################## AGREGAR ERDS ############################################
@@ -77,7 +91,7 @@ def main():
     while True:
         Tiempo_Inicio = time.time()
         SetBoard()
-        State = ReadButton("C0", "F01B")
+        State = ReadERD("C0", "F01B")
         
         if State != System_State:
             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
@@ -88,10 +102,10 @@ def main():
             Count_EndOfCycle = 0
         
         System_State = State
-        if (State == "03") or (State == 4 and Count_EndOfCycle < 2):
+        if (State == "03") or (State == "04" and Count_EndOfCycle < 2):
             ERDS = []
             for ERD in ERD_List:
-                Dato = ReadButton("C0", ERD)
+                Dato = ReadERD("C0", ERD)
                 ERDS.append(Dato)
 
             Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord, Erd_CurrentInletTemperature, Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_HeatControlParametric, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_SensorDryTemperatureMultiplierx100, Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds,Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, Erd_ModelNumber, Erd_SerialNumber, Erd_AppliancePersonality, Erd_MachineStatus, Erd_MachineSubCycle, Erd_EcoDryOptionRequest, Erd_ReduceStaticOption, Erd_ExtendedTumbleAllowable, Erd_DetangleAllowable, Erd_MyCycleAllowable = ERDS                                                             
