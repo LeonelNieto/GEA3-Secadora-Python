@@ -85,11 +85,13 @@ ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30
             "F075", "003A", "003B", "FF01", "204D", "F0B2", "F0AF", "F0AB", "F0AD", "F0A9", "F0A8", "F1A5", "F1A6", "F816", "F0BC", "F0A7", "F0C7", "F0BA", "FD98",
             "F1A0", "F1A1", "F0ED", "F116", "F137", "F0AA", "0001", "0002", "0035", "2000", "2001", "2044", "205E", "F644", "F646", "F649"]
 
+tiempo_referencia = time.time()
+
 def main():
     Count_EndOfCycle = 0
     System_State = ""
     while True:
-        Tiempo_Inicio = time.time()
+        tiempo_actual = time.time()
         SetBoard()
         State = ReadERD("C0", "F01B")
         
@@ -125,15 +127,13 @@ def main():
 
             DATA_TO_WRITE = [Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord_drynessOptionAtStart, Erd_RamCycleHistoryRecord_drynessOptionAtEnd, Erd_RamCycleHistoryRecord_temperatureOptionAtStart, Erd_RamCycleHistoryRecord_temperatureOptionAtEnd, Erd_CurrentInletTemperature,Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_HeatControlParametric, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierEcoDry, Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierExtraLow, Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierLow, Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierMedium, Erd_SensorDryTemperatureMultiplierx100_temperatureMultiplierHigh,Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds, Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, Erd_ModelNumber, Erd_SerialNumber, Erd_AppliancePersonality, Erd_MachineStatus, Erd_MachineSubCycle, Erd_EcoDryOptionRequest, Erd_ReduceStaticOption, Erd_ExtendedTumbleAllowable, Erd_DetangleAllowable, Erd_MyCycleAllowable]
             
-            TimeS = datetime.now().strftime("%H:%M")
-            DiaS = datetime.now().strftime("%d-%m-%Y") 
-            DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
-            print(DATA_TO_CSV)
-            FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
-
-            Tiempo_Restante = 60 - (time.time() - Tiempo_Inicio)
-            if Tiempo_Restante > 0:
-                time.sleep(Tiempo_Restante)
+            if tiempo_actual - tiempo_referencia >= 60:
+                TimeS = datetime.now().strftime("%H:%M")
+                DiaS = datetime.now().strftime("%d-%m-%Y") 
+                DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
+                print(DATA_TO_CSV)
+                FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
+                tiempo_referencia = tiempo_actual
 
 if __name__ == "__main__":
     main()
