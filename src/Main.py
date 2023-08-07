@@ -85,11 +85,11 @@ ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30
             "F075", "003A", "003B", "FF01", "204D", "F0B2", "F0AF", "F0AB", "F0AD", "F0A9", "F0A8", "F1A5", "F1A6", "F816", "F0BC", "F0A7", "F0C7", "F0BA", "FD98",
             "F1A0", "F1A1", "F0ED", "F116", "F137", "F0AA", "0001", "0002", "0035", "2000", "2001", "2044", "205E", "F644", "F646", "F649"]
 
-tiempo_referencia = time.time()
 
 def main():
     Count_EndOfCycle = 0
     System_State = ""
+    tiempo_referencia = time.time()
     while True:
         tiempo_actual = time.time()
         SetBoard()
