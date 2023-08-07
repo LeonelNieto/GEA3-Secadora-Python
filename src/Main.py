@@ -132,9 +132,9 @@ def main():
                 tiempo_referencia = tiempo_actual
                 FirstCall = False
                 if Erd_CurrentSystemState == "05":
-                    Count_EndOfCycle == 1
+                    Count_EndOfCycle = 1
                 else:
-                    Count_EndOfCycle == 0
+                    Count_EndOfCycle = 0
 
 if __name__ == "__main__":
     main()
