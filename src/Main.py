@@ -89,7 +89,6 @@ ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30
 def main():
     Count_EndOfCycle = 0
     System_State = ""
-    Erd_CurrentSystemState = "00"
     tiempo_referencia = time.time()
     while True:
         SetBoard()
