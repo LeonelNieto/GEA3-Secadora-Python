@@ -99,7 +99,7 @@ def main():
             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
 
         if (State != System_State) and State not in ["03", "04", "05"]:
-            FileCsv.Write_Data_System_State(file_System_State, definitions.System_State("ENDOFCYCLE"))
+            FileCsv.Write_Data_System_State(file_System_State, "ENDOFCYCLE")
         
         System_State = State
         
