@@ -9,7 +9,7 @@ import sys
 import time
 import verifylength as vrlen
 
-def SetBoard(board):
+def SetBoard():
     """
     Configure serial port and autoconnect it
     """                                                      
