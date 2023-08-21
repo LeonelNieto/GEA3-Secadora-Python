@@ -93,7 +93,7 @@ def main():
     tiempo_referencia = time.time()
     FirstCall = False
     while True:
-        SetBoard(1)
+        SetBoard()
         State = ReadERD("C0", "F01B")
         if (State != System_State) and State in ["03", "04", "05"]:
             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
