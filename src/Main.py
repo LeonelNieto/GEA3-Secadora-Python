@@ -1,14 +1,15 @@
-import ReadorWrite
-import verifylength as vrlen
-import serial
 from datetime import datetime
-import time
-import FileCsv
 import definitions
+import FileCsv
+import ReadorWrite
 import os
+import serial
+import serial.tools.list_ports
 import sys
+import time
+import verifylength as vrlen
 
-def SetBoard():
+def SetBoard(board):
     """
     Configure serial port and autoconnect it
     """                                                      
@@ -18,7 +19,7 @@ def SetBoard():
     ser.bytesize = serial.EIGHTBITS
     ser.parity = serial.PARITY_NONE                                                          
     ser.timeout = 0.5                                                                                                
-    ser.port = "/dev/ttyUSB0"                                                
+    ser.port = "/dev/ttyUSB0"                                              
     ser.open()    
     
 def ReadERD(dst:str, ERD:str) -> str:
@@ -91,8 +92,9 @@ def main():
     System_State = ""
     Erd_CurrentSystemState = ""
     tiempo_referencia = time.time()
+    FirstCall = False
     while True:
-        SetBoard()
+        SetBoard(1)
         State = ReadERD("C0", "F01B")
         if (State != System_State) and State in ["03", "04", "05"]:
             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
