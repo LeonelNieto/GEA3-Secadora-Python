@@ -4,7 +4,6 @@ import FileCsv
 import ReadorWrite
 import os
 import serial
-import serial.tools.list_ports
 import sys
 import time
 import verifylength as vrlen
