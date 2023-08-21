@@ -91,7 +91,7 @@ def main():
     System_State = ""
     Erd_CurrentSystemState = ""
     tiempo_referencia = time.time()
-    FirstCall = False
+    FirstCall = True
     while True:
         SetBoard()
         State = ReadERD("C0", "F01B")
