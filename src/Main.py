@@ -102,7 +102,10 @@ def main():
                         if State == "":
                             raise Exception("DisconnectWire")
                         
+                        print(contWireDisconnect)
+                        
                         if ((State != System_State) and (State in ["03", "04", "05"])) or contWireDisconnect == 1:
+                            print("Ya estoy entrando aqui")
                             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
                             contWireDisconnect = 0
 
