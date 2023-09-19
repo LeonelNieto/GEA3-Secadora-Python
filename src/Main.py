@@ -96,6 +96,7 @@ def main():
                 try:
                     State = ReadERD("C0", "F01B")
                 except DisconnectedWire:
+                    FileCsv.Write_Data_System_State(file_System_State, "WIREDISCONNECT")
                     print("Some wire was disconnected")
                     time.sleep(1)
                 if State == "":
