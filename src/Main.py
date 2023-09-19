@@ -95,8 +95,10 @@ def main():
                 SetBoard()
                 try:
                     State = ReadERD("C0", "F01B")
+                    if State == "":
+                        raise DisconnectedWire("Some wire was disconnected, Verify conections")
                 except DisconnectedWire:
-                    FileCsv.Write_Data_System_State(file_System_State, "WIREDISCONNECT")
+                    FileCsv.Write_Data_System_State(file_System_State, "DISCONNECT")
                     print("Some wire was disconnected")
                     time.sleep(1)
                 if State == "":
