@@ -130,7 +130,7 @@ def main():
                             Count_EndOfCycle = 1
                         else:
                             Count_EndOfCycle = 0
-        except serial.SerialException:
+        except (serial.SerialException, OSError):
             FileCsv.Write_Data_System_State(file_System_State, "PORTDISCONNECT")
             print("No se pudo conectar al puerto")
         
