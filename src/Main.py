@@ -23,6 +23,7 @@ def SetBoard():
         ser.open()
         
     except serial.SerialException:
+        FileCsv.Write_Data_System_State(file_System_State, "PORTDISCONNECT")
         print("No se pudo conectar al puerto")    
     
 def ReadERD(dst:str, ERD:str) -> str:
