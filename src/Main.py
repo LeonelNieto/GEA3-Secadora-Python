@@ -133,8 +133,7 @@ def main():
         except (serial.SerialException, OSError):
             FileCsv.Write_Data_System_State(file_System_State, "PORTDISCONNECT")
             print("No se pudo conectar al puerto")
-        
-        time.sleep(3) 
+            time.sleep(3) 
 
 if __name__ == "__main__":
     main()
