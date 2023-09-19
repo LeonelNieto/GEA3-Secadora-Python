@@ -8,6 +8,9 @@ import sys
 import time
 import verifylength as vrlen
 
+class DisconnectedWire(Exception):
+    pass
+
 def SetBoard():
     """
     Configure serial port and autoconnect it
@@ -90,7 +93,13 @@ def main():
             FirstCall = True
             while True:
                 SetBoard()
-                State = ReadERD("C0", "F01B")
+                try:
+                    State = ReadERD("C0", "F01B")
+                except DisconnectedWire:
+                    print("Some wire was disconnected")
+                    time.sleep(1)
+                if State == "":
+                    raise Exception("DisconnectWire")
                 if (State != System_State) and State in ["03", "04", "05"]:
                     FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
 
