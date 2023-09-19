@@ -96,16 +96,11 @@ def main():
                 SetBoard()
                 while True:
                     try:
-                        
                         State = ReadERD("C0", "F01B")
-                        print(contWireDisconnect)
-                        print("State: " + State)
-                        print("State: " + System_State)
                         if State == "None":
                             raise DisconnectedWire("Some wire was disconnected, Verify conections")
                         
                         if ((State != System_State) and (State in ["03", "04", "05"])) or contWireDisconnect > 0:
-                            print("Ya estoy entrando aqui")
                             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
                             contWireDisconnect = 0
 
