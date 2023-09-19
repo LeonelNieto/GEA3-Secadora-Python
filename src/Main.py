@@ -48,7 +48,7 @@ def ReadERD(dst:str, ERD:str) -> str:
                 break                   
             if reading == b'':   
                 complete_frame = "Verifica conexiones"   
-                break
+                return ""
         complete_frame = complete_frame.upper()             
         Byte_ERD = complete_frame[14:18]
         Byte_OK = complete_frame[12:14]
