@@ -48,7 +48,7 @@ def ReadERD(dst:str, ERD:str) -> str:
                 break                   
             if reading == b'':   
                 complete_frame = "Verifica conexiones"   
-                return ""
+                return "None"
         complete_frame = complete_frame.upper()             
         Byte_ERD = complete_frame[14:18]
         Byte_OK = complete_frame[12:14]
@@ -102,10 +102,8 @@ def main():
                         print(contWireDisconnect)
                         print("State: " + State)
                         print("State: " + System_State)
-                        if State == "":
+                        if State == "None":
                             raise DisconnectedWire("Some wire was disconnected, Verify conections")
-                        if State == "":
-                            raise Exception("DisconnectWire")
                         
                         if ((State != System_State) and (State in ["03", "04", "05"])) and contWireDisconnect > 0:
                             print("Ya estoy entrando aqui")
