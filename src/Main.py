@@ -91,6 +91,7 @@ def main():
             Erd_CurrentSystemState = ""
             tiempo_referencia = time.time()
             FirstCall = True
+            contWireDisconnect = 0
             while True:
                 SetBoard()
                 while True:
@@ -100,6 +101,7 @@ def main():
                             raise DisconnectedWire("Some wire was disconnected, Verify conections")
                         if State == "":
                             raise Exception("DisconnectWire")
+                        
                         if (State != System_State) and State in ["03", "04", "05"]:
                             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
 
@@ -110,6 +112,8 @@ def main():
                         
                         if State not in ["03", "04", "05"]:
                             FirstCall = True
+                        
+                        print(State)
                         
                         if (State == "03") or (State == "04") or (((Erd_CurrentSystemState == "05") or (State == "05")) and Count_EndOfCycle == 0):
                             tiempo_actual = time.time()
