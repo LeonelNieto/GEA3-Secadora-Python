@@ -12,14 +12,18 @@ def SetBoard():
     """
     Configure serial port and autoconnect it
     """                                                      
-    global ser
-    ser = serial.Serial()
-    ser.baudrate = 230400                                                               
-    ser.bytesize = serial.EIGHTBITS
-    ser.parity = serial.PARITY_NONE                                                          
-    ser.timeout = 0.5                                                                                                
-    ser.port = "/dev/ttyUSB0"                                              
-    ser.open()    
+    try:
+        global ser
+        ser = serial.Serial()
+        ser.baudrate = 230400                                                               
+        ser.bytesize = serial.EIGHTBITS
+        ser.parity = serial.PARITY_NONE                                                          
+        ser.timeout = 0.5                                                                                                
+        ser.port = "/dev/ttyUSB0"                                              
+        ser.open()
+        
+    except serial.SerialException:
+        print("No se pudo conectar al puerto")    
     
 def ReadERD(dst:str, ERD:str) -> str:
     """
