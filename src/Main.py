@@ -96,18 +96,21 @@ def main():
                 SetBoard()
                 while True:
                     try:
+                        
+                        print(contWireDisconnect)
+                        
                         State = ReadERD("C0", "F01B")
                         if State == "":
                             raise DisconnectedWire("Some wire was disconnected, Verify conections")
                         if State == "":
                             raise Exception("DisconnectWire")
                         
-                        if ((State != System_State) and (State in ["03", "04", "05"])) or contWireDisconnect == 1:
+                        if ((State != System_State) and (State in ["03", "04", "05"])) or contWireDisconnect != 0:
                             print("Ya estoy entrando aqui")
                             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
                             contWireDisconnect = 0
 
-                        if ((State != System_State) and (State not in ["03", "04", "05"])) or contWireDisconnect == 1:
+                        if ((State != System_State) and (State not in ["03", "04", "05"])) or contWireDisconnect == 0:
                             FileCsv.Write_Data_System_State(file_System_State, "ENDOFCYCLE")
                             contWireDisconnect = 0
                         
@@ -145,9 +148,10 @@ def main():
                                 else:
                                     Count_EndOfCycle = 0
                     except DisconnectedWire:
-                        FileCsv.Write_Data_System_State(file_System_State, "WIREDISCONNECT")
-                        print("Some wire was disconnected")
-                        contWireDisconnect = 1
+                        if contWireDisconnect > 3:
+                            FileCsv.Write_Data_System_State(file_System_State, "WIREDISCONNECT")
+                            print("Some wire was disconnected")
+                        contWireDisconnect += 1
                         time.sleep(1)
         except (serial.SerialException, OSError):
             FileCsv.Write_Data_System_State(file_System_State, "PORTDISCONNECT")
