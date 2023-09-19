@@ -97,7 +97,6 @@ def main():
                 while True:
                     try:
                         
-                        
                         State = ReadERD("C0", "F01B")
                         print(contWireDisconnect)
                         print("State: " + State)
@@ -152,6 +151,7 @@ def main():
                             FileCsv.Write_Data_System_State(file_System_State, "WIREDISCONNECT")
                             print("Some wire was disconnected")
                         contWireDisconnect += 1
+                        System_State = State
                         time.sleep(1)
         except (serial.SerialException, OSError):
             FileCsv.Write_Data_System_State(file_System_State, "PORTDISCONNECT")
