@@ -82,7 +82,6 @@ ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30
             "F1A0", "F1A1", "F0ED", "F116", "F137", "F0AA", "0001", "0002", "0035", "2000", "2001", "205E", "2046", "2050", "2053", "2099", "2076",
             "207A", "2077", "F074", "208C"]
 
-
 def main():
     while True:
         try:
@@ -141,6 +140,7 @@ def main():
                                     Count_EndOfCycle = 1
                                 else:
                                     Count_EndOfCycle = 0
+                                    
                     except DisconnectedWire:
                         if contWireDisconnect > 3:
                             FileCsv.Write_Data_System_State(file_System_State, "WIREDISCONNECT")
@@ -148,6 +148,7 @@ def main():
                         contWireDisconnect += 1
                         System_State = State
                         time.sleep(1)
+                        
         except (serial.SerialException, OSError):
             FileCsv.Write_Data_System_State(file_System_State, "PORTDISCONNECT")
             print("No se pudo conectar al puerto")
