@@ -91,77 +91,73 @@ def main():
             tiempo_referencia = time.time()
             FirstCall = True
             contWireDisconnect = 0
-            while True:
-                SetBoard()
-                while True:
-                    try:
-                        State = ReadERD("C0", "F01B")
-                        if State == "None":
-                            raise DisconnectedWire("Some wire was disconnected, Verify conections")
+            SetBoard()
+            State = ReadERD("C0", "F01B")
+            if State == "None":
+                raise DisconnectedWire("Some wire was disconnected, Verify conections")
+            
+            if contWireDisconnect > 0:
+                if State in ["03", "04", "05"]:
+                    FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
+                    contWireDisconnect = 0
+                    
+                if State not in ["03", "04", "05"]:
+                    FileCsv.Write_Data_System_State(file_System_State, "ENDOFCYCLE")
+                    contWireDisconnect = 0
+            
+            if (State != System_State) and (State in ["03", "04", "05"]):
+                FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
+                contWireDisconnect = 0
+
+            if (State != System_State) and (State not in ["03", "04", "05"]):
+                FileCsv.Write_Data_System_State(file_System_State, "ENDOFCYCLE")
+                contWireDisconnect = 0
+            
+            System_State = State
+            
+            if State not in ["03", "04", "05"]:
+                FirstCall = True
+            
+            if (State == "03") or (State == "04") or (((Erd_CurrentSystemState == "05") or (State == "05")) and Count_EndOfCycle == 0):
+                tiempo_actual = time.time()
+                ERDS = []
+                for ERD in ERD_List:
+                    Dato = ReadERD("C0", ERD)
+                    ERDS.append(Dato)
+
+                Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord, Erd_CurrentInletTemperature, Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds, Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, Erd_ModelNumber, Erd_SerialNumber, Erd_AppliancePersonality, Erd_MachineStatus, Erd_MachineSubCycle, Erd_ReduceStaticOption, Erd_EcoDryOption, Erd_TemperatureOption, Erd_ExtendedTumbleOption, Erd_ScentOption, Erd_DetangleOption,Erd_SanitizeOption, Erd_TimeLevelOption, Erd_AlertVolumeOption, Erd_SteamCycleOption = ERDS                                                             
+                
+                Erd_RamCycleHistoryRecord_drynessOptionAtStart = Erd_RamCycleHistoryRecord[100:102]
+                Erd_RamCycleHistoryRecord_drynessOptionAtEnd = Erd_RamCycleHistoryRecord[102:104]
+                Erd_RamCycleHistoryRecord_temperatureOptionAtStart = Erd_RamCycleHistoryRecord[104:106]
+                Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = Erd_RamCycleHistoryRecord[106:108]
+
+                DATA_TO_WRITE = [Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord_drynessOptionAtStart, Erd_RamCycleHistoryRecord_drynessOptionAtEnd, Erd_RamCycleHistoryRecord_temperatureOptionAtStart, Erd_RamCycleHistoryRecord_temperatureOptionAtEnd, Erd_CurrentInletTemperature,Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds,Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds, Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, Erd_ModelNumber, Erd_SerialNumber, Erd_AppliancePersonality, Erd_MachineStatus, Erd_MachineSubCycle, Erd_ReduceStaticOption, Erd_EcoDryOption, Erd_TemperatureOption, Erd_ExtendedTumbleOption, Erd_ScentOption, Erd_DetangleOption, Erd_SanitizeOption, Erd_TimeLevelOption, Erd_AlertVolumeOption, Erd_SteamCycleOption]
+                
+                if (tiempo_actual - tiempo_referencia >= 60) or FirstCall or (Count_EndOfCycle == 0 and Erd_CurrentSystemState == "05"):
+                    TimeS = datetime.now().strftime("%H:%M")
+                    DiaS = datetime.now().strftime("%d-%m-%Y") 
+                    DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
+                    print(DATA_TO_CSV)
+                    FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
+                    tiempo_referencia = tiempo_actual
+                    FirstCall = False
+                    if Erd_CurrentSystemState == "05":
+                        Count_EndOfCycle = 1
+                    else:
+                        Count_EndOfCycle = 0
                         
-                        if contWireDisconnect > 0:
-                            if State in ["03", "04", "05"]:
-                                FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
-                                contWireDisconnect = 0
+        except ValueError:
+            print("ValueError")
                                 
-                            if State not in ["03", "04", "05"]:
-                                FileCsv.Write_Data_System_State(file_System_State, "ENDOFCYCLE")
-                                contWireDisconnect = 0
-                        
-                        if (State != System_State) and (State in ["03", "04", "05"]):
-                            FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
-                            contWireDisconnect = 0
-
-                        if (State != System_State) and (State not in ["03", "04", "05"]):
-                            FileCsv.Write_Data_System_State(file_System_State, "ENDOFCYCLE")
-                            contWireDisconnect = 0
-                        
-                        System_State = State
-                        
-                        if State not in ["03", "04", "05"]:
-                            FirstCall = True
-                        
-                        if (State == "03") or (State == "04") or (((Erd_CurrentSystemState == "05") or (State == "05")) and Count_EndOfCycle == 0):
-                            tiempo_actual = time.time()
-                            ERDS = []
-                            for ERD in ERD_List:
-                                Dato = ReadERD("C0", ERD)
-                                ERDS.append(Dato)
-
-                            Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord, Erd_CurrentInletTemperature, Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds, Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, Erd_ModelNumber, Erd_SerialNumber, Erd_AppliancePersonality, Erd_MachineStatus, Erd_MachineSubCycle, Erd_ReduceStaticOption, Erd_EcoDryOption, Erd_TemperatureOption, Erd_ExtendedTumbleOption, Erd_ScentOption, Erd_DetangleOption,Erd_SanitizeOption, Erd_TimeLevelOption, Erd_AlertVolumeOption, Erd_SteamCycleOption = ERDS                                                             
-                            
-                            Erd_RamCycleHistoryRecord_drynessOptionAtStart = Erd_RamCycleHistoryRecord[100:102]
-                            Erd_RamCycleHistoryRecord_drynessOptionAtEnd = Erd_RamCycleHistoryRecord[102:104]
-                            Erd_RamCycleHistoryRecord_temperatureOptionAtStart = Erd_RamCycleHistoryRecord[104:106]
-                            Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = Erd_RamCycleHistoryRecord[106:108]
-
-                            DATA_TO_WRITE = [Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord_drynessOptionAtStart, Erd_RamCycleHistoryRecord_drynessOptionAtEnd, Erd_RamCycleHistoryRecord_temperatureOptionAtStart, Erd_RamCycleHistoryRecord_temperatureOptionAtEnd, Erd_CurrentInletTemperature,Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds,Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds, Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, Erd_ModelNumber, Erd_SerialNumber, Erd_AppliancePersonality, Erd_MachineStatus, Erd_MachineSubCycle, Erd_ReduceStaticOption, Erd_EcoDryOption, Erd_TemperatureOption, Erd_ExtendedTumbleOption, Erd_ScentOption, Erd_DetangleOption, Erd_SanitizeOption, Erd_TimeLevelOption, Erd_AlertVolumeOption, Erd_SteamCycleOption]
-                            
-                            if (tiempo_actual - tiempo_referencia >= 60) or FirstCall or (Count_EndOfCycle == 0 and Erd_CurrentSystemState == "05"):
-                                TimeS = datetime.now().strftime("%H:%M")
-                                DiaS = datetime.now().strftime("%d-%m-%Y") 
-                                try:
-                                    DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
-                                    print(DATA_TO_CSV)
-                                    FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
-                                    tiempo_referencia = tiempo_actual
-                                    FirstCall = False
-                                    if Erd_CurrentSystemState == "05":
-                                        Count_EndOfCycle = 1
-                                    else:
-                                        Count_EndOfCycle = 0
-                                    
-                                except ValueError:
-                                    print("ValueError")
-                                            
-                    except DisconnectedWire:
-                        if contWireDisconnect > 3:
-                            FileCsv.Write_Data_System_State(file_System_State, "WIREDISCONNECT")
-                            print("Some wire was disconnected")
-                        contWireDisconnect += 1
-                        System_State = State
-                        time.sleep(1)
-                        
+        except DisconnectedWire:
+            if contWireDisconnect > 3:
+                FileCsv.Write_Data_System_State(file_System_State, "WIREDISCONNECT")
+                print("Some wire was disconnected")
+            contWireDisconnect += 1
+            System_State = State
+            time.sleep(1)
+                    
         except (serial.SerialException, OSError):
             FileCsv.Write_Data_System_State(file_System_State, "PORTDISCONNECT")
             print("No se pudo conectar al puerto")
