@@ -140,20 +140,19 @@ def main():
                             if (tiempo_actual - tiempo_referencia >= 60) or FirstCall or (Count_EndOfCycle == 0 and Erd_CurrentSystemState == "05"):
                                 TimeS = datetime.now().strftime("%H:%M")
                                 DiaS = datetime.now().strftime("%d-%m-%Y") 
-                                while True:
-                                    try:
-                                        DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
-                                        print(DATA_TO_CSV)
-                                        FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
-                                        tiempo_referencia = tiempo_actual
-                                        FirstCall = False
-                                        if Erd_CurrentSystemState == "05":
-                                            Count_EndOfCycle = 1
-                                        else:
-                                            Count_EndOfCycle = 0
+                                try:
+                                    DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
+                                    print(DATA_TO_CSV)
+                                    FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
+                                    tiempo_referencia = tiempo_actual
+                                    FirstCall = False
+                                    if Erd_CurrentSystemState == "05":
+                                        Count_EndOfCycle = 1
+                                    else:
+                                        Count_EndOfCycle = 0
                                     
-                                    except ValueError:
-                                        print("ValueError")
+                                except ValueError:
+                                    print("ValueError")
                                             
                     except DisconnectedWire:
                         if contWireDisconnect > 3:
