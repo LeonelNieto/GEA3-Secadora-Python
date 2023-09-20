@@ -101,10 +101,12 @@ def main():
                         
                         if ((State != System_State) and (State in ["03", "04", "05"])) or contWireDisconnect > 0:
                             FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
+                            print("Entré en el estado de run")
                             contWireDisconnect = 0
 
                         if ((State != System_State) and (State not in ["03", "04", "05"])) or contWireDisconnect > 0:
                             FileCsv.Write_Data_System_State(file_System_State, "ENDOFCYCLE")
+                            print("Entré en el estado EOC")
                             contWireDisconnect = 0
                         
                         System_State = State
