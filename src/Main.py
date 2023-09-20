@@ -143,11 +143,6 @@ def main():
                                 while True:
                                     try:
                                         DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
-                                    
-                                    except ValueError:
-                                        print("ValueError")
-                                        
-                                    else: 
                                         print(DATA_TO_CSV)
                                         FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
                                         tiempo_referencia = tiempo_actual
@@ -156,6 +151,9 @@ def main():
                                             Count_EndOfCycle = 1
                                         else:
                                             Count_EndOfCycle = 0
+                                    
+                                    except ValueError:
+                                        print("ValueError")
                                             
                     except DisconnectedWire:
                         if contWireDisconnect > 3:
