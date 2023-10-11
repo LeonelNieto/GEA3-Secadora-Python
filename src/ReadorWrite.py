@@ -5,7 +5,7 @@ def ReadErd(ERD, dst):
     src = "E4"                                                                                          
     cmd = "A000"                                                                                        
     bitStop = "E3"                                                                                      
-    longitud = int(((len(bitInit + dst + src + cmd + ERD + bitStop)) + 6) / 2)                          
+    longitud = int(((len(bitInit + dst + src + cmd + ERD + bitStop)) + 6) / 2)  # +6 es la inclusión del crc (2 bytes) y la propia longitud (1 byte)                        
     lenght = "{:02x}".format(longitud)                                                                  
     FrameToCalculateCrc = dst + lenght + src + cmd + ERD                                                
     crc = Crc.crc16_ccitt(FrameToCalculateCrc)                                                                                                                                            # Elimina "0x" del CRC
