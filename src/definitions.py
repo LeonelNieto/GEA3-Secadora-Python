@@ -260,7 +260,7 @@ def ERDS_TO_WRITE(ERDS):
     Erd_ParametricVersion_major = str(int(Erd_ParametricVersion[4:6], 16))
     Erd_ParametricVersion_minor = str(int(Erd_ParametricVersion[6:8], 16))
     ERDS_LIST.append(Erd_ParametricVersion_criticalMajor + "." + Erd_ParametricVersion_criticalMinor + "." + Erd_ParametricVersion_major + "." + Erd_ParametricVersion_minor)
-    ERDS_LIST(ERDS[24])
+    ERDS_LIST.append(ERDS[24])
     
     Erd_Personality = int(ERDS[25], 16)
     Erd_PersonalityValue = str(Erd_Personality)
