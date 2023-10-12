@@ -145,59 +145,37 @@ def ERDS_TO_WRITE(ERDS):
     ERDS_LIST.append(Erd_RamCycleHistoryRecord_temperatureOptionAtEndValue)
 
     Erd_CurrentInletTemperature = int(ERDS[7], 16)
-    Erd_CurrentInletTemperatureValue = str(Erd_CurrentInletTemperature)
     ERDS_LIST.append(str(Erd_CurrentInletTemperature))
-    ERDS_LIST.append(Erd_CurrentInletTemperatureValue)
 
     Erd_CurrentOutletTemperature = int(ERDS[8], 16)
-    Erd_CurrentOutletTemperatureValue = str(Erd_CurrentOutletTemperature)
     ERDS_LIST.append(str(Erd_CurrentOutletTemperature))
-    ERDS_LIST.append(Erd_CurrentOutletTemperatureValue)
 
     Erd_OverTemperatureMaxInletTemperature = int(ERDS[9], 16)
-    Erd_OverTemperatureMaxInletTemperatureValue = str(Erd_OverTemperatureMaxInletTemperature)
     ERDS_LIST.append(str(Erd_OverTemperatureMaxInletTemperature))
-    ERDS_LIST.append(Erd_OverTemperatureMaxInletTemperatureValue)
 
     Erd_HeaterRelay1 = int(ERDS[10], 16)
-    Erd_HeaterRelay1Value = str(Erd_HeaterRelay1)
     ERDS_LIST.append(str(Erd_HeaterRelay1))
-    ERDS_LIST.append(Erd_HeaterRelay1Value)
     
     Erd_HeaterRelay2 = int(ERDS[11], 16)
-    Erd_HeaterRelay2Value = str(Erd_HeaterRelay2)
     ERDS_LIST.append(str(Erd_HeaterRelay2))
-    ERDS_LIST.append(Erd_HeaterRelay2Value)
 
     Erd_MaxTemperatureSlope = int(ERDS[12], 16)
-    Erd_MaxTemperatureSlopeValue = str(Erd_MaxTemperatureSlope)
     ERDS_LIST.append(str(Erd_MaxTemperatureSlope))
-    ERDS_LIST.append(Erd_MaxTemperatureSlopeValue)
     
     Erd_MinimumFilteredVoltageFromMc = int(ERDS[13], 16)
-    Erd_MinimumFilteredVoltageFromMcValue = str(Erd_MinimumFilteredVoltageFromMc)
     ERDS_LIST.append(str(Erd_MinimumFilteredVoltageFromMc))
-    ERDS_LIST.append(Erd_MinimumFilteredVoltageFromMcValue)
 
     Erd_FilteredMoistureSensor = int(ERDS[14], 16)
-    Erd_FilteredMoistureSensorValue = str(Erd_FilteredMoistureSensor)
     ERDS_LIST.append(str(Erd_FilteredMoistureSensor))
-    ERDS_LIST.append(Erd_FilteredMoistureSensorValue)
     
     Erd_SmoothMoistureReading = int(ERDS[15], 16)
-    Erd_SmoothMoistureReadingValue = str(Erd_SmoothMoistureReading)
     ERDS_LIST.append(str(Erd_SmoothMoistureReading))
-    ERDS_LIST.append(Erd_SmoothMoistureReadingValue)
 
     Erd_CalculatedCurvature = int(ERDS[16], 16)
-    Erd_CalculatedCurvatureValue = str(Erd_CalculatedCurvature)
     ERDS_LIST.append(str(Erd_CalculatedCurvature))
-    ERDS_LIST.append(Erd_CalculatedCurvatureValue)
 
     Erd_CurvatureOccurredCount = int(ERDS[17], 16)
-    Erd_CurvatureOccurredCountValue = str(Erd_CurvatureOccurredCount)
     ERDS_LIST.append(str(Erd_CurvatureOccurredCount))    
-    ERDS_LIST.append(Erd_CurvatureOccurredCountValue)
 
     Erd_TrimmerInhibitRelay1 = int(ERDS[18], 16)
     Erd_TrimmerInhibitRelay1Value = str(Erd_TrimmerInhibitRelay1)
@@ -252,7 +230,6 @@ def ERDS_TO_WRITE(ERDS):
     Erd_ApplicationVersion_major = str(int(Erd_ApplicationVersion[4:6], 16))
     Erd_ApplicationVersion_minor = str(int(Erd_ApplicationVersion[6:8], 16))
     ERDS_LIST.append(Erd_ApplicationVersion_criticalMajor + "." + Erd_ApplicationVersion_criticalMinor + "." + Erd_ApplicationVersion_major + "." + Erd_ApplicationVersion_minor)
-    ERDS_LIST.append(ERDS[23])
     
     Erd_ParametricVersion = ERDS[24]
     Erd_ParametricVersion_criticalMajor = str(int(Erd_ParametricVersion[0:2], 16))
@@ -260,12 +237,9 @@ def ERDS_TO_WRITE(ERDS):
     Erd_ParametricVersion_major = str(int(Erd_ParametricVersion[4:6], 16))
     Erd_ParametricVersion_minor = str(int(Erd_ParametricVersion[6:8], 16))
     ERDS_LIST.append(Erd_ParametricVersion_criticalMajor + "." + Erd_ParametricVersion_criticalMinor + "." + Erd_ParametricVersion_major + "." + Erd_ParametricVersion_minor)
-    ERDS_LIST.append(ERDS[24])
     
     Erd_Personality = int(ERDS[25], 16)
-    Erd_PersonalityValue = str(Erd_Personality)
     ERDS_LIST.append(str(Erd_Personality))
-    ERDS_LIST.append(Erd_PersonalityValue)
 
     Erd_DrynessOption = int(ERDS[26], 16)
     Erd_DrynessOptionValue = str(Erd_DrynessOption)
@@ -332,29 +306,19 @@ def ERDS_TO_WRITE(ERDS):
     ERDS_LIST.append(Erd_TargetMoistureVoltageHasBeenReachedValue)
     
     Erd_TargetMoistureVoltage = int(ERDS[32], 16)
-    Erd_TargetMoistureVoltageValue = str(Erd_TargetMoistureVoltage)
     ERDS_LIST.append(str(Erd_TargetMoistureVoltage))
-    ERDS_LIST.append(Erd_TargetMoistureVoltageValue)
     
     Erd_TotalDryTimeCalculatorTimeMultiplierX100 = int(ERDS[33], 16)
-    Erd_TotalDryTimeCalculatorTimeMultiplierX100Value = str(Erd_TotalDryTimeCalculatorTimeMultiplierX100)
     ERDS_LIST.append(str(Erd_TotalDryTimeCalculatorTimeMultiplierX100))
-    ERDS_LIST.append(Erd_TotalDryTimeCalculatorTimeMultiplierX100Value)
 
     Erd_TotalDryTimeCalculatorTimeAdderSeconds = int(ERDS[34], 16)
-    Erd_TotalDryTimeCalculatorTimeAdderSecondsValue = str(Erd_TotalDryTimeCalculatorTimeAdderSeconds)
     ERDS_LIST.append(str(Erd_TotalDryTimeCalculatorTimeAdderSeconds))
-    ERDS_LIST.append(Erd_TotalDryTimeCalculatorTimeAdderSecondsValue)
         
     Erd_TimeToReachTargetVoltageSeconds = int(ERDS[35], 16)
-    Erd_TimeToReachTargetVoltageSecondsValue = str(Erd_TimeToReachTargetVoltageSeconds)
     ERDS_LIST.append(str(Erd_TimeToReachTargetVoltageSeconds))
-    ERDS_LIST.append(Erd_TimeToReachTargetVoltageSecondsValue)
 
     Erd_SensingCycleTotalDryingTimeSeconds = int(ERDS[36], 16)
-    Erd_SensingCycleTotalDryingTimeSecondsValue = str(Erd_SensingCycleTotalDryingTimeSeconds)
     ERDS_LIST.append(str(Erd_SensingCycleTotalDryingTimeSeconds))
-    ERDS_LIST.append(Erd_SensingCycleTotalDryingTimeSecondsValue)
 
     Erd_DrumGroundWatchdogResult = int(ERDS[37], 16)
     Erd_DrumGroundWatchdogResultValue = str(Erd_DrumGroundWatchdogResult)
@@ -392,14 +356,10 @@ def ERDS_TO_WRITE(ERDS):
     ERDS_LIST.append(Erd_Fault_DrumGroundWatchdogDetectionValue)
 
     Erd_SteamValveCycleCountRam = int(ERDS[40], 16)
-    Erd_SteamValveCycleCountRamValue = str(Erd_SteamValveCycleCountRam)
     ERDS_LIST.append(str(Erd_SteamValveCycleCountRam))
-    ERDS_LIST.append(Erd_SteamValveCycleCountRamValue)
 
     Erd_SteamValveOnTimeDurationInSecondsRam = int(ERDS[41], 16)
-    Erd_SteamValveOnTimeDurationInSecondsRamValue = str(Erd_SteamValveOnTimeDurationInSecondsRam)
     ERDS_LIST.append(str(Erd_SteamValveOnTimeDurationInSecondsRam))   
-    ERDS_LIST.append(Erd_SteamValveOnTimeDurationInSecondsRamValue)
 
     Erd_CoolDownStepStatus = int(ERDS[42], 16)
     Erd_CoolDownStepStatusValue = str(Erd_CoolDownStepStatus)
@@ -474,16 +434,12 @@ def ERDS_TO_WRITE(ERDS):
     
     Erd_ModelNumber = str(bytes.fromhex(ERDS[46]).decode('utf-8').replace('\x00', ''))
     ERDS_LIST.append(Erd_ModelNumber)
-    ERDS_LIST.append(ERDS[46])
     
     Erd_SerialNumber = str(bytes.fromhex(ERDS[47]).decode('utf-8').replace('\x00', ''))
     ERDS_LIST.append(Erd_SerialNumber)
-    ERDS_LIST.append(ERDS[47])
     
     Erd_AppliancePersonality = int(ERDS[48], 16)
-    Erd_AppliancePersonalityValue = str(Erd_AppliancePersonality)
     ERDS_LIST.append(str(Erd_AppliancePersonality))
-    ERDS_LIST.append(Erd_AppliancePersonalityValue)
 
     Erd_MachineStatus = int(ERDS[49], 16)
     Erd_MachineStatusValue = str(Erd_MachineStatus)
