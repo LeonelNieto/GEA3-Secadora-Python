@@ -61,10 +61,37 @@ def ReadERD(dst:str, ERD:str) -> str:
 
 ########################################   HEADERS   ############################################
 
-HEADERS = ["Fecha", "Hora", "Erd_CurrentSystemState", "Erd_CycleSelected", "Erd_EStarSensorDryRequested","Erd_RamCycleHistoryRecord.drynessOptionAtStart", 
-                    "Erd_RamCycleHistoryRecord.drynessOptionAtEnd", "Erd_RamCycleHistoryRecord.temperatureOptionAtStart", "Erd_RamCycleHistoryRecord.temperatureOptionAtEnd", "Erd_CurrentInletTemperature","Erd_CurrentOutletTemperature", "Erd_OverTemperatureMaxInletTemperature","Erd_HeaterRelay1", "Erd_HeaterRelay2", "Erd_MaxTemperatureSlope","Erd_MinimumFilteredVoltageFromMc", "Erd_FilteredMoistureSensor", "Erd_SmoothMoistureReading", "Erd_CalculatedCurvature", "Erd_CurvatureOccurredCount", "Erd_TrimmerInhibitRelay1", "Erd_TrimmerInhibitRelay2", "Erd_TrimmerBothCoilInhibitRequest", "Erd_DrumMotorState", "Erd_FallbackHeatControlMethodStatus", "Erd_ApplicationVersion", "Erd_ParametricVersion", 
-                    "Erd_Personality", "Erd_DrynessOption", "Erd_VentRestriction", "Erd_LoadSizeByAggregation", "Erd_LoadSizeByContact", "Erd_LoadSizeByTemperature","Erd_TargetMoistureVoltageHasBeenReached", "Erd_TargetMoistureVoltage", "Erd_TotalDryTimeCalculatorTimeMultiplierX100", "Erd_TotalDryTimeCalculatorTimeAdderSeconds", "Erd_TimeToReachTargetVoltageSeconds", "Erd_SensingCycleTotalDryingTimeSeconds", "Erd_DrumGroundWatchdogResult", "Erd_ClothDampnessCheckResult", "Erd_Fault_DrumGroundWatchdogDetection", "Erd_SteamValveCycleCountRam","Erd_SteamValveOnTimeDurationInSecondsRam", "Erd_CoolDownStepStatus", "Erd_ExtendedTumbleStepStatus", "Erd_SteamStepStatus", "Erd_EndOfCycleReason", "Erd_ModelNumber", "Erd_SerialNumber", "Erd_AppliancePersonality", "Erd_MachineStatus", "Erd_MachineSubCycle", "Erd_ReduceStaticOption", "Erd_EcoDryOption", "Erd_TemperatureOption", "Erd_ExtendedTumbleOption", "Erd_ScentOption", "Erd_DetangleOption", "Erd_SanitizeOption", 
-                    "Erd_TimeLevelOption", "Erd_AlertVolumeOption", "Erd_SteamCycleOption"]  
+HEADERS = ["Fecha", "Hora", "Erd_CurrentSystemState", "Erd_CurrentSystemState_Raw" ,"Erd_CycleSelected", "Erd_CycleSelected_Raw",
+                    "Erd_EStarSensorDryRequested", "Erd_EStarSensorDryRequested_Raw", 
+                    "Erd_RamCycleHistoryRecord.drynessOptionAtStart", "Erd_RamCycleHistoryRecord.drynessOptionAtStartRaw", 
+                    "Erd_RamCycleHistoryRecord.drynessOptionAtEnd", "Erd_RamCycleHistoryRecord.drynessOptionAtEnd_Raw",
+                    "Erd_RamCycleHistoryRecord.temperatureOptionAtStart", "Erd_RamCycleHistoryRecord.temperatureOptionAtStart_Raw",
+                    "Erd_RamCycleHistoryRecord.temperatureOptionAtEnd", "Erd_RamCycleHistoryRecord.temperatureOptionAtEnd_Raw", 
+                    "Erd_CurrentInletTemperature", "Erd_CurrentInletTemperature_Raw", "Erd_CurrentOutletTemperature", "Erd_CurrentOutletTemperature_Raw", 
+                    "Erd_OverTemperatureMaxInletTemperature", "Erd_OverTemperatureMaxInletTemperature_Raw", "Erd_HeaterRelay1", "Erd_HeaterRelay1_Raw",
+                    "Erd_HeaterRelay2", "Erd_HeaterRelay2_Raw", "Erd_MaxTemperatureSlope", "Erd_MaxTemperatureSlope_Raw",
+                    "Erd_MinimumFilteredVoltageFromMc", "Erd_MinimumFilteredVoltageFromMc_Raw", "Erd_FilteredMoistureSensor", "Erd_FilteredMoistureSensor_Raw",
+                    "Erd_SmoothMoistureReading",  "Erd_SmoothMoistureReading_Raw", "Erd_CalculatedCurvature", "Erd_CalculatedCurvature_Raw", 
+                    "Erd_CurvatureOccurredCount", "Erd_CurvatureOccurredCount_Raw", "Erd_TrimmerInhibitRelay1", "Erd_TrimmerInhibitRelay1_Raw",
+                    "Erd_TrimmerInhibitRelay2", "Erd_TrimmerInhibitRelay2_Raw", "Erd_TrimmerBothCoilInhibitRequest", "Erd_TrimmerBothCoilInhibitRequest_Raw", 
+                    "Erd_DrumMotorState", "Erd_DrumMotorState_Raw", "Erd_FallbackHeatControlMethodStatus", "Erd_FallbackHeatControlMethodStatus_Raw",
+                    "Erd_ApplicationVersion", "Erd_ApplicationVersion_Raw", "Erd_ParametricVersion", "Erd_ParametricVersion_Raw", 
+                    "Erd_Personality", "Erd_Personality_Raw", "Erd_DrynessOption", "Erd_DrynessOption_Raw", "Erd_VentRestriction", "Erd_VentRestriction_Raw",
+                    "Erd_LoadSizeByAggregation", "Erd_LoadSizeByAggregation_Raw", "Erd_LoadSizeByContact", "Erd_LoadSizeByContact_Raw", 
+                    "Erd_LoadSizeByTemperature", "Erd_LoadSizeByTemperature_Raw", "Erd_TargetMoistureVoltageHasBeenReached", "Erd_TargetMoistureVoltageHasBeenReached_Raw",
+                    "Erd_TargetMoistureVoltage", "Erd_TargetMoistureVoltage_Raw", "Erd_TotalDryTimeCalculatorTimeMultiplierX100", "Erd_TotalDryTimeCalculatorTimeMultiplierX100_Raw", 
+                    "Erd_TotalDryTimeCalculatorTimeAdderSeconds", "Erd_TotalDryTimeCalculatorTimeAdderSeconds", 
+                    "Erd_TimeToReachTargetVoltageSeconds", "Erd_TimeToReachTargetVoltageSeconds_Raw", 
+                    "Erd_SensingCycleTotalDryingTimeSeconds", "Erd_SensingCycleTotalDryingTimeSeconds_Raw", "Erd_DrumGroundWatchdogResult", "Erd_DrumGroundWatchdogResult_Raw", 
+                    "Erd_ClothDampnessCheckResult", "Erd_ClothDampnessCheckResult_Raw", "Erd_Fault_DrumGroundWatchdogDetection", "Erd_Fault_DrumGroundWatchdogDetection_Raw", 
+                    "Erd_SteamValveCycleCountRam", "Erd_SteamValveCycleCountRam_Raw", "Erd_SteamValveOnTimeDurationInSecondsRam", "Erd_SteamValveOnTimeDurationInSecondsRam_Raw", 
+                    "Erd_CoolDownStepStatus", "Erd_CoolDownStepStatus_Raw", "Erd_ExtendedTumbleStepStatus", "Erd_ExtendedTumbleStepStatus_Raw", 
+                    "Erd_SteamStepStatus", "Erd_SteamStepStatus_Raw", "Erd_EndOfCycleReason", "Erd_EndOfCycleReason_Raw", "Erd_ModelNumber", "Erd_ModelNumber_Raw", 
+                    "Erd_SerialNumber", "Erd_SerialNumber_Raw", "Erd_AppliancePersonality", "Erd_AppliancePersonality_Raw", "Erd_MachineStatus", "Erd_MachineStatus_Raw", 
+                    "Erd_MachineSubCycle", "Erd_MachineSubCycle_Raw", "Erd_ReduceStaticOption", "Erd_ReduceStaticOption_Raw", "Erd_EcoDryOption", "Erd_EcoDryOption_Raw", 
+                    "Erd_TemperatureOption", "Erd_TemperatureOption_Raw", "Erd_ExtendedTumbleOption", "Erd_ExtendedTumbleOption_Raw", "Erd_ScentOption", "Erd_ScentOption_Raw",
+                    "Erd_DetangleOption", "Erd_DetangleOption_Raw", "Erd_SanitizeOption", "Erd_SanitizeOption_Raw", "Erd_TimeLevelOption", "Erd_TimeLevelOption_Raw",
+                    "Erd_AlertVolumeOption", "Erd_AlertVolumeOption_Raw", "Erd_SteamCycleOption", "Erd_SteamCycleOption_Raw"]  
 
 file_name_System_State = "System_State" + ".csv"
 Executable_Path = sys.argv[0]
@@ -135,7 +162,17 @@ def main():
                             Erd_RamCycleHistoryRecord_temperatureOptionAtStart = Erd_RamCycleHistoryRecord[104:106]
                             Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = Erd_RamCycleHistoryRecord[106:108]
 
-                            DATA_TO_WRITE = [Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord_drynessOptionAtStart, Erd_RamCycleHistoryRecord_drynessOptionAtEnd, Erd_RamCycleHistoryRecord_temperatureOptionAtStart, Erd_RamCycleHistoryRecord_temperatureOptionAtEnd, Erd_CurrentInletTemperature,Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds,Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds, Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, Erd_ModelNumber, Erd_SerialNumber, Erd_AppliancePersonality, Erd_MachineStatus, Erd_MachineSubCycle, Erd_ReduceStaticOption, Erd_EcoDryOption, Erd_TemperatureOption, Erd_ExtendedTumbleOption, Erd_ScentOption, Erd_DetangleOption, Erd_SanitizeOption, Erd_TimeLevelOption, Erd_AlertVolumeOption, Erd_SteamCycleOption]
+                            DATA_TO_WRITE = [Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord_drynessOptionAtStart, Erd_RamCycleHistoryRecord_drynessOptionAtEnd, 
+                                            Erd_RamCycleHistoryRecord_temperatureOptionAtStart, Erd_RamCycleHistoryRecord_temperatureOptionAtEnd, Erd_CurrentInletTemperature,Erd_CurrentOutletTemperature, 
+                                            Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, 
+                                            Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, 
+                                            Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, 
+                                            Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, 
+                                            Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds,Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds, 
+                                            Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, 
+                                            Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, Erd_ModelNumber, Erd_SerialNumber, Erd_AppliancePersonality, Erd_MachineStatus, 
+                                            Erd_MachineSubCycle, Erd_ReduceStaticOption, Erd_EcoDryOption, Erd_TemperatureOption, Erd_ExtendedTumbleOption, Erd_ScentOption, Erd_DetangleOption, Erd_SanitizeOption, 
+                                            Erd_TimeLevelOption, Erd_AlertVolumeOption, Erd_SteamCycleOption]
                             
                             if (tiempo_actual - tiempo_referencia >= 60) or FirstCall or (Count_EndOfCycle == 0 and Erd_CurrentSystemState == "05"):
                                 TimeS = datetime.now().strftime("%H:%M")
