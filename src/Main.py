@@ -8,6 +8,11 @@ import sys
 import time
 import verifylength as vrlen
 
+STATE_RUN            = "03"
+STATE_PAUSE          = "04"
+STATE_ENDOFCYCLE     = "05"
+STATES_RUN_PAUSE_EOC = ["03", "04", "05"]
+
 class DisconnectedWire(Exception):
     pass
 
@@ -75,13 +80,11 @@ HEADERS = ["Fecha", "Hora", "Erd_CurrentSystemState", "Erd_CurrentSystemState_Ra
                     "Erd_CurvatureOccurredCount",  "Erd_TrimmerInhibitRelay1", "Erd_TrimmerInhibitRelay1_Raw",
                     "Erd_TrimmerInhibitRelay2", "Erd_TrimmerInhibitRelay2_Raw", "Erd_TrimmerBothCoilInhibitRequest", "Erd_TrimmerBothCoilInhibitRequest_Raw", 
                     "Erd_DrumMotorState", "Erd_DrumMotorState_Raw", "Erd_FallbackHeatControlMethodStatus", "Erd_FallbackHeatControlMethodStatus_Raw",
-                    "Erd_ApplicationVersion", "Erd_ParametricVersion",  
-                    "Erd_Personality", "Erd_DrynessOption", "Erd_DrynessOption_Raw", "Erd_VentRestriction", "Erd_VentRestriction_Raw",
-                    "Erd_LoadSizeByAggregation", "Erd_LoadSizeByAggregation_Raw", "Erd_LoadSizeByContact", "Erd_LoadSizeByContact_Raw", 
-                    "Erd_LoadSizeByTemperature", "Erd_LoadSizeByTemperature_Raw", "Erd_TargetMoistureVoltageHasBeenReached", "Erd_TargetMoistureVoltageHasBeenReached_Raw",
-                    "Erd_TargetMoistureVoltage", "Erd_TotalDryTimeCalculatorTimeMultiplierX100",  
-                    "Erd_TotalDryTimeCalculatorTimeAdderSeconds",  
-                    "Erd_TimeToReachTargetVoltageSeconds", 
+                    "Erd_ApplicationVersion", "Erd_ParametricVersion", "Erd_Personality", "Erd_DrynessOption", "Erd_DrynessOption_Raw", 
+                    "Erd_VentRestriction", "Erd_VentRestriction_Raw","Erd_LoadSizeByAggregation", "Erd_LoadSizeByAggregation_Raw", 
+                    "Erd_LoadSizeByContact", "Erd_LoadSizeByContact_Raw", "Erd_LoadSizeByTemperature", "Erd_LoadSizeByTemperature_Raw", 
+                    "Erd_TargetMoistureVoltageHasBeenReached", "Erd_TargetMoistureVoltageHasBeenReached_Raw",
+                    "Erd_TargetMoistureVoltage", "Erd_TotalDryTimeCalculatorTimeMultiplierX100", "Erd_TotalDryTimeCalculatorTimeAdderSeconds", "Erd_TimeToReachTargetVoltageSeconds", 
                     "Erd_SensingCycleTotalDryingTimeSeconds", "Erd_DrumGroundWatchdogResult", "Erd_DrumGroundWatchdogResult_Raw", 
                     "Erd_ClothDampnessCheckResult", "Erd_ClothDampnessCheckResult_Raw", "Erd_Fault_DrumGroundWatchdogDetection", "Erd_Fault_DrumGroundWatchdogDetection_Raw", 
                     "Erd_SteamValveCycleCountRam",  "Erd_SteamValveOnTimeDurationInSecondsRam",  
@@ -125,30 +128,21 @@ def main():
                         State = ReadERD("C0", "F01B")
                         if State == "None":
                             raise DisconnectedWire("Some wire was disconnected, Verify conections")
-                        
-                        if contWireDisconnect > 0:
-                            if State in ["03", "04", "05"]:
+ 
+                        if State != System_State or contWireDisconnect > 0:
+                            if State in STATES_RUN_PAUSE_EOC:
                                 FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
-                                contWireDisconnect = 0
                                 
-                            if State not in ["03", "04", "05"]:
+                            else:
                                 FileCsv.Write_Data_System_State(file_System_State, "ENDOFCYCLE")
-                                contWireDisconnect = 0
-                        
-                        if (State != System_State) and (State in ["03", "04", "05"]):
-                            FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
-                            contWireDisconnect = 0
-
-                        if (State != System_State) and (State not in ["03", "04", "05"]):
-                            FileCsv.Write_Data_System_State(file_System_State, "ENDOFCYCLE")
                             contWireDisconnect = 0
                         
                         System_State = State
                         
-                        if State not in ["03", "04", "05"]:
+                        if State not in STATES_RUN_PAUSE_EOC:
                             FirstCall = True
                         
-                        if (State == "03") or (State == "04") or (((Erd_CurrentSystemState == "05") or (State == "05")) and Count_EndOfCycle == 0):
+                        if (State == STATE_RUN) or (State == STATE_PAUSE) or (((Erd_CurrentSystemState == STATE_ENDOFCYCLE) or (State == STATE_ENDOFCYCLE)) and Count_EndOfCycle == 0):
                             tiempo_actual = time.time()
                             ERDS = []
                             for ERD in ERD_List:
@@ -174,16 +168,17 @@ def main():
                                             Erd_MachineSubCycle, Erd_ReduceStaticOption, Erd_EcoDryOption, Erd_TemperatureOption, Erd_ExtendedTumbleOption, Erd_ScentOption, Erd_DetangleOption, Erd_SanitizeOption, 
                                             Erd_TimeLevelOption, Erd_AlertVolumeOption, Erd_SteamCycleOption]
                             
-                            if (tiempo_actual - tiempo_referencia >= 60) or FirstCall or (Count_EndOfCycle == 0 and Erd_CurrentSystemState == "05"):
+                            if (tiempo_actual - tiempo_referencia >= 60) or FirstCall or (Count_EndOfCycle == 0 and Erd_CurrentSystemState == STATE_ENDOFCYCLE):
                                 TimeS = datetime.now().strftime("%H:%M")
                                 DiaS = datetime.now().strftime("%d-%m-%Y") 
                                 try:
+                                    FileCsv.Write_Data_System_State(file_System_State, "RUN")
                                     DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
                                     print(DATA_TO_CSV)
                                     FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
                                     tiempo_referencia = tiempo_actual
                                     FirstCall = False
-                                    if Erd_CurrentSystemState == "05":
+                                    if Erd_CurrentSystemState == STATE_ENDOFCYCLE:
                                         Count_EndOfCycle = 1
                                     else:
                                         Count_EndOfCycle = 0

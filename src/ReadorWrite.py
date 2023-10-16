@@ -43,4 +43,3 @@ def Boatloader(dst, cmd, msg):
     frame = bitInit + FrameToCalculateCrc + crc + bitStop                                              
     data = bytes.fromhex(frame)                                                                        
     return data                                                                                         
-
