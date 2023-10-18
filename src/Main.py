@@ -8,6 +8,8 @@ import sys
 import time
 import verifylength as vrlen
 
+STATE_IDLE           = "01"
+STATE_STANDBY        = "02"
 STATE_RUN            = "03"
 STATE_PAUSE          = "04"
 STATE_ENDOFCYCLE     = "05"
@@ -115,12 +117,14 @@ ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30
 def main():
     while True:
         try:
-            Count_EndOfCycle = 0
-            System_State = ""
+            LastStateIsRun         = False
+            Count_EndOfCycle       = 0
+            System_State           = ""
             Erd_CurrentSystemState = ""
-            tiempo_referencia = time.time()
-            FirstCall = True
-            contWireDisconnect = 0
+            FirstCall              = True
+            contWireDisconnect     = 0
+            tiempo_referencia      = time.time()
+            
             while True:
                 SetBoard()
                 while True:
@@ -128,7 +132,10 @@ def main():
                         State = ReadERD("C0", "F01B")
                         if State == "None":
                             raise DisconnectedWire("Some wire was disconnected, Verify conections")
- 
+
+                        if (State == STATE_STANDBY or State == STATE_IDLE) and System_State == STATE_RUN:
+                            LastStateIsRun = True
+                        
                         if State != System_State or contWireDisconnect > 0:
                             if State in STATES_RUN_PAUSE_EOC:
                                 FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
@@ -136,13 +143,13 @@ def main():
                             else:
                                 FileCsv.Write_Data_System_State(file_System_State, "ENDOFCYCLE")
                             contWireDisconnect = 0
-                        
+                
                         System_State = State
                         
                         if State not in STATES_RUN_PAUSE_EOC:
                             FirstCall = True
                         
-                        if (State == STATE_RUN) or (State == STATE_PAUSE) or (((Erd_CurrentSystemState == STATE_ENDOFCYCLE) or (State == STATE_ENDOFCYCLE)) and Count_EndOfCycle == 0):
+                        if (State == STATE_RUN) or (State == STATE_PAUSE) or (((Erd_CurrentSystemState == STATE_ENDOFCYCLE) or (State == STATE_ENDOFCYCLE)) and Count_EndOfCycle == 0) or LastStateIsRun:
                             tiempo_actual = time.time()
                             ERDS = []
                             for ERD in ERD_List:
@@ -167,8 +174,9 @@ def main():
                                             Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, Erd_ModelNumber, Erd_SerialNumber, Erd_AppliancePersonality, Erd_MachineStatus, 
                                             Erd_MachineSubCycle, Erd_ReduceStaticOption, Erd_EcoDryOption, Erd_TemperatureOption, Erd_ExtendedTumbleOption, Erd_ScentOption, Erd_DetangleOption, Erd_SanitizeOption, 
                                             Erd_TimeLevelOption, Erd_AlertVolumeOption, Erd_SteamCycleOption]
+                                                            
                             
-                            if (tiempo_actual - tiempo_referencia >= 60) or FirstCall or (Count_EndOfCycle == 0 and Erd_CurrentSystemState == STATE_ENDOFCYCLE):
+                            if (tiempo_actual - tiempo_referencia >= 60) or FirstCall or (Count_EndOfCycle == 0 and Erd_CurrentSystemState == STATE_ENDOFCYCLE) or LastStateIsRun:
                                 TimeS = datetime.now().strftime("%H:%M")
                                 DiaS = datetime.now().strftime("%d-%m-%Y") 
                                 try:
@@ -177,6 +185,8 @@ def main():
                                     FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
                                     tiempo_referencia = tiempo_actual
                                     FirstCall = False
+                                    LastStateIsRun = False
+                                    
                                     if Erd_CurrentSystemState == STATE_ENDOFCYCLE:
                                         Count_EndOfCycle = 1
                                     else:
