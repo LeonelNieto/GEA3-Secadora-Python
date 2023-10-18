@@ -172,8 +172,6 @@ def main():
                                 TimeS = datetime.now().strftime("%H:%M")
                                 DiaS = datetime.now().strftime("%d-%m-%Y") 
                                 try:
-                                    if Erd_CurrentSystemState == STATE_ENDOFCYCLE:
-                                        FileCsv.Write_Data_System_State(file_System_State, "RUN")
                                     DATA_TO_CSV = [DiaS] + [TimeS] + definitions.ERDS_TO_WRITE(DATA_TO_WRITE)
                                     print(DATA_TO_CSV)
                                     FileCsv.Write_Data_CSV(File_Data_Erds, DATA_TO_CSV) 
