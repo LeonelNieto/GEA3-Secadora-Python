@@ -32,9 +32,9 @@ El puerto está programado en el USB0, por lo tanto el puerto debe ser siempre t
 ## Cómo crear el archivo ejecutable
 Lo primero que se tiene que hacer es abrir una terminal en la carpeta contenedora del archivo Main.py *Ya que en este caso este es el archivo principal*.
 En la terminal se debe de ejecutar el siguiente comando:
-- pyinstaller --onefile --F Main.py
+- pyinstaller --onefile -F Main.py
 
 Este comando lo que realiza es lo siguiente:
 **--onefile:** Hace que solo se cree y sea necesario un solo archivo que este caso es llamado como *Main*
-**--F:** Va a contener todas las bibliotecas de python, lo que va a generar que el programa sea más pesado, sin embargo, esto ayuda a que el dispositivo en el que vaya a ejecutar, puedo corrar sin problemas de dependencias de bibliotecas.
+**-F:** Va a contener todas las bibliotecas de python, lo que va a generar que el programa sea más pesado, sin embargo, esto ayuda a que el dispositivo en el que vaya a ejecutar, puedo corrar sin problemas de dependencias de bibliotecas.
 **Main.py:** Es el nombre del archivo del cual se quiere crear el archivo ejecutable.
