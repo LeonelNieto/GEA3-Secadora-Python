@@ -192,8 +192,8 @@ def main():
                                     else:
                                         Count_EndOfCycle = 0
                                     
-                                except ValueError:
-                                    print("ValueError Dato: ", Dato)
+                                except ValueError as value_error:
+                                    print(value_error)
                                     print(DATA_TO_WRITE)
                                             
                     except DisconnectedWire:
