@@ -108,6 +108,9 @@ File_Data_Erds = os.path.join(Actual_Path, File_Name_Erds)
 if not os.path.exists(File_Data_Erds):
     FileCsv.Write_Data_CSV(File_Data_Erds, HEADERS)
 
+file_name_valueError = "ValueError" + ".csv"
+file_valueError      = os.path.join(Actual_Path, file_name_valueError)
+
 ######################################## AGREGAR ERDS ############################################
 ERD_List = ["F01B", "200A", "F11F", "F15E", "F301", "F302", "F705", "F30C", "F30D", "F0AE", "F0AC", "F303", "F322", "F11A", "F119", "F07F", "F080", "F073", "F311",
             "F075", "003A", "003B", "FF01", "204D", "F0B2", "F0AF", "F0AB", "F0AD", "F0A9", "F0A8", "F1A5", "F1A6", "F0BC", "F0A7", "F0C7", "F0BA", "FD98",
@@ -195,6 +198,7 @@ def main():
                                 except ValueError as value_error:
                                     print(value_error)
                                     print(DATA_TO_WRITE)
+                                    FileCsv.Write_Data_CSV(file_valueError, DATA_TO_WRITE)
                                             
                     except DisconnectedWire:
                         if contWireDisconnect > 3:
