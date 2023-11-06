@@ -119,7 +119,7 @@ def main():
         try:
             LastStateIsRun         = False
             Count_EndOfCycle       = 0
-            System_State           = ""
+            LastState              = ""
             Erd_CurrentSystemState = ""
             FirstCall              = True
             contWireDisconnect     = 0
@@ -129,27 +129,27 @@ def main():
                 SetBoard()
                 while True:
                     try:
-                        State = ReadERD("C0", "F01B")
-                        if State == "None":
+                        ActualState = ReadERD("C0", "F01B")
+                        if ActualState == "None":
                             raise DisconnectedWire("Some wire was disconnected, Verify conections")
 
-                        if (State == STATE_STANDBY or State == STATE_IDLE) and System_State == STATE_RUN:
+                        if (ActualState == STATE_STANDBY or ActualState == STATE_IDLE) and LastState == STATE_RUN:
                             LastStateIsRun = True
                         
-                        if State != System_State or contWireDisconnect > 0:
-                            if State in STATES_RUN_PAUSE_EOC:
-                                FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(State))
+                        if ActualState != LastState or contWireDisconnect > 0:
+                            if ActualState in STATES_RUN_PAUSE_EOC:
+                                FileCsv.Write_Data_System_State(file_System_State, definitions.System_State(ActualState))
                                 
                             else:
                                 FileCsv.Write_Data_System_State(file_System_State, "ENDOFCYCLE")
                             contWireDisconnect = 0
                 
-                        System_State = State
+                        LastState = ActualState
                         
-                        if State not in STATES_RUN_PAUSE_EOC:
+                        if ActualState not in STATES_RUN_PAUSE_EOC:
                             FirstCall = True
                         
-                        if (State == STATE_RUN) or (State == STATE_PAUSE) or (((Erd_CurrentSystemState == STATE_ENDOFCYCLE) or (State == STATE_ENDOFCYCLE)) and Count_EndOfCycle == 0) or LastStateIsRun:
+                        if (ActualState == STATE_RUN) or (ActualState == STATE_PAUSE) or (((Erd_CurrentSystemState == STATE_ENDOFCYCLE) or (ActualState == STATE_ENDOFCYCLE)) and Count_EndOfCycle == 0) or LastStateIsRun:
                             tiempo_actual = time.time()
                             ERDS = []
                             for ERD in ERD_List:
@@ -163,7 +163,7 @@ def main():
                             Erd_RamCycleHistoryRecord_temperatureOptionAtStart = Erd_RamCycleHistoryRecord[104:106]
                             Erd_RamCycleHistoryRecord_temperatureOptionAtEnd = Erd_RamCycleHistoryRecord[106:108]
 
-                            DATA_TO_WRITE = [Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord_drynessOptionAtStart, Erd_RamCycleHistoryRecord_drynessOptionAtEnd, 
+                            DATA_TO_WRITE = [Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord_drynessOptionAtStart,        Erd_RamCycleHistoryRecord_drynessOptionAtEnd, 
                                             Erd_RamCycleHistoryRecord_temperatureOptionAtStart, Erd_RamCycleHistoryRecord_temperatureOptionAtEnd, Erd_CurrentInletTemperature,Erd_CurrentOutletTemperature, 
                                             Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, 
                                             Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, 
@@ -193,14 +193,15 @@ def main():
                                         Count_EndOfCycle = 0
                                     
                                 except ValueError:
-                                    print("ValueError")
+                                    print("ValueError Dato: ", Dato)
+                                    print(DATA_TO_WRITE)
                                             
                     except DisconnectedWire:
                         if contWireDisconnect > 3:
                             FileCsv.Write_Data_System_State(file_System_State, "WIREDISCONNECT")
                             print("Some wire was disconnected")
                         contWireDisconnect += 1
-                        System_State = State
+                        LastState = ActualState
                         time.sleep(1)
                         
         except (serial.SerialException, OSError):
