@@ -7,6 +7,7 @@ import serial
 import sys
 import time
 import verifylength as vrlen
+from Crc import Is_Crc_Correct
 
 STATE_IDLE           = "01"
 STATE_STANDBY        = "02"
@@ -59,7 +60,7 @@ def ReadERD(dst:str, ERD:str) -> str:
         complete_frame = complete_frame.upper()             
         Byte_ERD = complete_frame[14:18]
         Byte_OK = complete_frame[12:14]
-        if (Byte_ERD == ERD) and (Byte_OK == "00"):
+        if (Byte_ERD == ERD) and (Byte_OK == "00") and Is_Crc_Correct(complete_frame):
             Longitud_Dato_hex = complete_frame[18:20]
             Longitud_Dato_int = int(Longitud_Dato_hex, 16) * 2
             Dato = complete_frame[20:(20 + Longitud_Dato_int)]

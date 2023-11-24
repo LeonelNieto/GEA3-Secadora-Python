@@ -13,3 +13,10 @@ def crc16_ccitt(data_hex):
     crcStr = "{:04x}".format(crc)
     
     return crcStr
+
+def Is_Crc_Correct(data_frame):
+    frame_to_calculate_crc = data_frame[2:-6]
+    crc_calculated = crc16_ccitt(frame_to_calculate_crc).upper()
+    crc_frame_read = data_frame[-6:-2]
+
+    return crc_calculated == crc_frame_read
