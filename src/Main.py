@@ -28,8 +28,8 @@ def SetBoard():
     ser.baudrate = 230400                                                               
     ser.bytesize = serial.EIGHTBITS
     ser.parity = serial.PARITY_NONE                                                          
-    ser.timeout = 0.5                                                                                                
-    ser.port = "/dev/ttyUSB0"                                              
+    ser.timeout = 0.0165                                                                          
+    ser.port = "COM7"                                              
     ser.open()
     
 def ReadERD(dst:str, ERD:str) -> str:
@@ -43,6 +43,7 @@ def ReadERD(dst:str, ERD:str) -> str:
     Return:
         Dato: Data of ERD read
     """                                    
+    DATA_IS_EMPTY = 0
     Erd = vrlen.longitudERD(ERD)             
     while True:
         complete_frame = ""  
@@ -51,13 +52,13 @@ def ReadERD(dst:str, ERD:str) -> str:
         while True:
             reading = ser.read(1)                 
             concatenate = reading.hex()                                     
-            complete_frame += concatenate                                        
-            if reading == b'\xE3':                               
+            complete_frame += concatenate                                       
+            if reading == b'':                               
                 break                   
-            if reading == b'':   
-                complete_frame = "Verifica conexiones"   
-                return "None"
-        complete_frame = complete_frame.upper()             
+        complete_frame = complete_frame.upper()  
+        DATA_IS_EMPTY = DATA_IS_EMPTY + 1 if complete_frame == "" else 0 
+        if DATA_IS_EMPTY >= 3:
+            return "None"
         Byte_ERD = complete_frame[14:18]
         Byte_OK = complete_frame[12:14]
         if (Byte_ERD == ERD) and (Byte_OK == "00") and Is_Crc_Correct(complete_frame):
@@ -156,10 +157,15 @@ def main():
                         if (ActualState == STATE_RUN) or (ActualState == STATE_PAUSE) or (((Erd_CurrentSystemState == STATE_ENDOFCYCLE) or (ActualState == STATE_ENDOFCYCLE)) and Count_EndOfCycle == 0) or LastStateIsRun:
                             tiempo_actual = time.time()
                             ERDS = []
+                            tiempo_erds = time.time()
                             for ERD in ERD_List:
                                 Dato = ReadERD("C0", ERD)
+                                if Dato == "None":
+                                    raise DisconnectedWire("Some wire was disconnected, Verify conections")
                                 ERDS.append(Dato)
-
+                            tiempo_leer_erds = time.time()
+                            print(tiempo_leer_erds - tiempo_erds)
+                            
                             Erd_CurrentSystemState, Erd_CycleSelected, Erd_EStarSensorDryRequested, Erd_RamCycleHistoryRecord, Erd_CurrentInletTemperature, Erd_CurrentOutletTemperature, Erd_OverTemperatureMaxInletTemperature, Erd_HeaterRelay1, Erd_HeaterRelay2, Erd_MaxTemperatureSlope, Erd_MinimumFilteredVoltageFromMc, Erd_FilteredMoistureSensor, Erd_SmoothMoistureReading, Erd_CalculatedCurvature, Erd_CurvatureOccurredCount, Erd_TrimmerInhibitRelay1, Erd_TrimmerInhibitRelay2, Erd_TrimmerBothCoilInhibitRequest, Erd_DrumMotorState, Erd_FallbackHeatControlMethodStatus, Erd_ApplicationVersion, Erd_ParametricVersion, Erd_Personality, Erd_DrynessOption, Erd_VentRestriction, Erd_LoadSizeByAggregation, Erd_LoadSizeByContact, Erd_LoadSizeByTemperature, Erd_TargetMoistureVoltageHasBeenReached, Erd_TargetMoistureVoltage, Erd_TotalDryTimeCalculatorTimeMultiplierX100, Erd_TotalDryTimeCalculatorTimeAdderSeconds, Erd_TimeToReachTargetVoltageSeconds, Erd_SensingCycleTotalDryingTimeSeconds, Erd_DrumGroundWatchdogResult, Erd_ClothDampnessCheckResult, Erd_Fault_DrumGroundWatchdogDetection, Erd_SteamValveCycleCountRam, Erd_SteamValveOnTimeDurationInSecondsRam, Erd_CoolDownStepStatus, Erd_ExtendedTumbleStepStatus, Erd_SteamStepStatus, Erd_EndOfCycleReason, Erd_ModelNumber, Erd_SerialNumber, Erd_AppliancePersonality, Erd_MachineStatus, Erd_MachineSubCycle, Erd_ReduceStaticOption, Erd_EcoDryOption, Erd_TemperatureOption, Erd_ExtendedTumbleOption, Erd_ScentOption, Erd_DetangleOption,Erd_SanitizeOption, Erd_TimeLevelOption, Erd_AlertVolumeOption, Erd_SteamCycleOption = ERDS                                                             
                             
                             Erd_RamCycleHistoryRecord_drynessOptionAtStart = Erd_RamCycleHistoryRecord[100:102]
@@ -190,11 +196,7 @@ def main():
                                     tiempo_referencia = tiempo_actual
                                     FirstCall = False
                                     LastStateIsRun = False
-                                    
-                                    if Erd_CurrentSystemState == STATE_ENDOFCYCLE:
-                                        Count_EndOfCycle = 1
-                                    else:
-                                        Count_EndOfCycle = 0
+                                    Count_EndOfCycle = 1 if Erd_CurrentSystemState == STATE_ENDOFCYCLE else 0
                                     
                                 except ValueError as value_error:
                                     print(value_error)
